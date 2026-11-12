@@ -28,3 +28,254 @@ textarea.note-field{width:100%;min-height:110px;resize:vertical;background:var(-
 @media(max-width:850px){.layout{grid-template-columns:1fr}.sidebar{position:fixed;transform:translateX(-110%);transition:transform .2s;width:280px;box-shadow:0 20px 70px #0002}.sidebar.open{transform:translateX(0)}.sidebar-scrim{display:none;position:fixed;inset:0;z-index:9;background:#0d252977}.sidebar-scrim.open{display:block}.menu-btn{display:grid}.topbar{padding:12px 18px}.container{padding:26px 18px 72px}.hero{grid-template-columns:1.3fr .7fr}.course-grid{grid-template-columns:1fr}}
 @media(max-width:600px){body{font-size:15px}.hero{grid-template-columns:1fr;min-height:0}.hero-art{margin:14px 0 18px}.hero .pet-shell{transform:scale(.8)}.hero h1{font-size:32px}.stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.stat{padding:13px}.stat strong{font-size:25px}.stat span{font-size:11px}.lesson-side{grid-template-columns:1fr}.panel{padding:18px}.lesson-footer{flex-direction:column}.lesson-footer .btn{width:100%}.sim-card{padding:12px}.top-actions .btn-text{display:none}.breadcrumb{font-size:12px}.toast{bottom:15px;right:15px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+
+/* ================================================================
+   PICO PET LAB — DESKTOP / TABLET / MOBILE LAYOUT FIX v2.0
+   2026-11-12
+   Intent: the original 268px fixed sidebar + 255px article TOC squeezed
+   lesson content into a mobile-width column on 900–1250px laptops.
+   Breakpoints now follow usable content width instead of device names.
+   This layer is appended after the original CSS for safe overrides.
+   ================================================================ */
+
+/* All viewport sizes: prevent hidden 1fr minimum-content overflow. */
+html { min-width: 320px; }
+body { overflow-x: clip; }
+.layout, .main, #app, .container, .lesson-content,
+.lesson-columns, .panel, .course-grid, .course-grid > *,
+.hero > *, .stats > * { min-width: 0; }
+.main { width: 100%; }
+#app { width: 100%; }
+.panel, .stat, .lesson-card { overflow-wrap: anywhere; }
+.code-wrap { max-width: 100%; }
+.code-wrap pre { max-width: 100%; overflow-x: auto; }
+.breadcrumb { min-width: 0; }
+.top-actions { flex-shrink: 0; }
+
+/* Desktop: a dedicated workspace, not stretched mobile cards. */
+@media (min-width: 1051px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 278px minmax(0, 1fr);
+    width: 100%;
+  }
+  .sidebar {
+    display: flex;
+    position: sticky;
+    top: 0;
+    left: auto;
+    width: auto;
+    height: 100dvh;
+    transform: none;
+    overflow: auto;
+    padding: 28px 16px 20px;
+    box-shadow: none;
+    z-index: 8;
+  }
+  .sidebar-scrim { display: none !important; }
+  .menu-btn { display: none !important; }
+  .main {
+    width: 100%;
+    min-width: 0;
+    background:
+      radial-gradient(circle at 85% 4%, rgba(75, 158, 139, .055) 0, transparent 42%),
+      var(--bg);
+  }
+  .topbar {
+    height: 76px;
+    padding-inline: clamp(32px, 3.5vw, 66px);
+    justify-content: space-between;
+  }
+  .container {
+    max-width: 1510px;
+    width: 100%;
+    margin-inline: auto;
+    padding: 43px clamp(32px, 3.5vw, 66px) 105px;
+  }
+  .hero {
+    grid-template-columns: minmax(0, 1.5fr) minmax(250px, .8fr);
+    align-items: center;
+    min-height: 340px;
+    padding: clamp(32px, 3.3vw, 54px);
+    gap: clamp(20px, 4vw, 72px);
+    border-radius: 28px;
+  }
+  .hero .lede { max-width: 610px; font-size: 16px; }
+  .hero-art { min-height: 225px; }
+  .hero .pet-shell { scale: 1.12; }
+  .hero-actions { margin-top: 26px; }
+  .stats { margin: 27px 0 40px; gap: 17px; }
+  .stat { min-height: 120px; padding: 24px 27px; }
+  .stat strong { font-size: clamp(28px, 2.5vw, 36px); }
+  .section-header { margin-top: 42px; }
+  .section-header h2 { font-size: 27px; }
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+  }
+  .lesson-card { min-height: 257px; padding: 25px 27px; }
+  .lesson-card h3 { font-size: 20px; }
+  .lesson-card p { font-size: 14px; line-height: 1.8; }
+  .card-bottom { align-items: center; }
+  .lesson-header { margin-bottom: 32px; }
+  .lesson-header h1 { font-size: clamp(37px, 3.4vw, 52px); }
+  .lesson-header .lede { font-size: 17px; max-width: 850px; }
+  .lesson-columns { grid-template-columns: minmax(0, 1fr); gap: 25px; }
+  .lesson-side {
+    order: 0;
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    align-items: start;
+  }
+  .side-panel { margin: 0; }
+  .panel { padding: 30px clamp(26px, 3vw, 40px); }
+  .panel h2 { font-size: 25px; }
+  .section-text { font-size: 16px; max-width: 900px; }
+  .bullet-points { max-width: 880px; }
+  .sim-card { padding: 24px; }
+  .quiz-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .quiz-options .quiz-option:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .side-panel a { font-size: 14px; }
+}
+
+/* Wider monitors: 3 course tiles across, with room for reading and TOC. */
+@media (min-width: 1560px) {
+  .course-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lesson-columns {
+    grid-template-columns: minmax(0, 1fr) 264px;
+    column-gap: 28px;
+    align-items: start;
+  }
+  .lesson-side {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 94px;
+    gap: 16px;
+    max-height: calc(100dvh - 108px);
+    overflow: auto;
+    scrollbar-width: thin;
+  }
+  .lesson-side .side-panel { width: 100%; }
+  .section-text { max-width: 860px; }
+}
+
+/* Large laptops and desktop 1360–1559: keep the table of contents at right
+   without sacrificing a comfortable 620px+ reading measure. */
+@media (min-width: 1360px) and (max-width: 1559px) {
+  .lesson-columns {
+    grid-template-columns: minmax(0, 1fr) 218px;
+    column-gap: 22px;
+    align-items: start;
+  }
+  .lesson-side {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 90px;
+    gap: 14px;
+  }
+  .lesson-side .side-panel { width: 100%; padding: 15px 16px; }
+  .lesson-side .side-panel h3 { font-size: 14px; }
+  .lesson-side .side-panel a { font-size: 12px; }
+  .panel { padding: 26px clamp(21px, 2vw, 32px); }
+}
+
+/* Laptops 1051–1359: reading content gets the full usable main width;
+   TOC/reference panels move below rather than compress the tutorial. */
+@media (min-width: 1051px) and (max-width: 1359px) {
+  .lesson-columns { grid-template-columns: minmax(0, 1fr); }
+  .lesson-side { position: static; }
+  .lesson-side .side-panel { padding: 19px 22px; }
+  .lesson-content { width: 100%; }
+  .quiz-options { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Tablet/small window: collapse main navigation early. Unlike old 850px
+   breakpoint, a 900px laptop no longer has 2 cramped sidebars. */
+@media (min-width: 761px) and (max-width: 1050px) {
+  .layout { display: block; grid-template-columns: minmax(0, 1fr); }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(-110%);
+    width: 292px;
+    height: 100dvh;
+    overflow-y: auto;
+    z-index: 12;
+    box-shadow: 0 20px 70px #0002;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-scrim { display: none; z-index: 11; position: fixed; inset: 0; }
+  .sidebar-scrim.open { display: block; }
+  .menu-btn { display: grid; }
+  .topbar { padding-inline: clamp(22px, 4vw, 40px); }
+  .container {
+    max-width: 100%;
+    padding: 34px clamp(24px, 4vw, 44px) 78px;
+  }
+  .hero {
+    grid-template-columns: minmax(0, 1.35fr) minmax(210px, .65fr);
+    min-height: 300px;
+    align-items: center;
+    padding: 34px;
+  }
+  .hero h1 { font-size: clamp(31px, 4vw, 42px); }
+  .hero .pet-shell { scale: .93; }
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .lesson-columns { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .lesson-side { position: static; display: grid; order: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
+  .side-panel { margin: 0; }
+  .panel { padding: 26px; }
+}
+
+/* Phones: only this mode uses a single-column touch layout. */
+@media (max-width: 760px) {
+  .layout { display: block; }
+  .sidebar {
+    position: fixed; top: 0; left: 0;
+    transform: translateX(-110%);
+    width: min(308px, 87vw);
+    height: 100dvh;
+    overflow-y: auto;
+    z-index: 12;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-scrim { z-index: 11; }
+  .topbar { min-height: 68px; }
+  .main, .container { min-width: 0; }
+  .container { padding: 24px 18px 70px; }
+  .hero { grid-template-columns: minmax(0, 1fr); padding: 28px 23px; gap: 9px; }
+  .hero h1 { font-size: clamp(29px, 7vw, 38px); }
+  .hero-art { min-height: 180px; margin-top: 18px; }
+  .hero .pet-shell { scale: .9; }
+  .course-grid { grid-template-columns: minmax(0, 1fr); }
+  .lesson-columns { grid-template-columns: minmax(0, 1fr); }
+  .lesson-side { position: static; order: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .side-panel { margin: 0; }
+  .stats { gap: 8px; }
+  .stat { padding: 14px 12px; }
+  .panel { padding: 18px; }
+  .quiz-options { grid-template-columns: 1fr; }
+  .top-actions .btn-text { display: none; }
+}
+
+/* Independent of device: make forms and code interactive areas resilient. */
+@media (hover:hover) and (pointer:fine) {
+  .nav-link:hover { background: var(--surface2); }
+  .lesson-card:hover { transform: translateY(-3px); }
+}
+@media (max-width: 390px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat:last-child { grid-column: 1 / -1; }
+  .hero-actions > * { flex: 1 1 100%; }
+}
