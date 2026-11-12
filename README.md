@@ -4,6 +4,24 @@
 > 主板：**Waveshare ESP32-S3-LCD-1.47B-M（SKU 31031）已購買**  
 > 狀態：**準備進入 Lesson 01，其他周邊尚未確認購買。**
 
+## 🌐 互動式 HTML 課程網站
+
+**完整 11 堂課已建立：** [網站首頁](https://wiselifeai.github.io/esp32-ai-pet/)（需先完成 [GitHub Pages 發布設定](docs/10_互動網頁使用說明.md) 才能開啟）。
+
+- [Lesson 01｜Hello Robot](lessons/01.html)
+- [Lesson 02｜點亮 LCD](lessons/02.html)
+- [Lesson 03｜表情與眨眼](lessons/03.html)
+- [Lesson 04｜六軸感測器](lessons/04.html)
+- [Lesson 05｜Wi-Fi 與 HTTPS](lessons/05.html)
+- [Lesson 06｜LLM 回答顯示](lessons/06.html)
+- [Lesson 07｜繁體中文字型](lessons/07.html)
+- [Lesson 08｜I²S 音訊](lessons/08.html)
+- [Lesson 09｜SG90 與 PCA9685](lessons/09.html)
+- [Lesson 10｜3D 外殼設計](lessons/10.html)
+- [Lesson 11｜整機整合](lessons/11.html)
+
+每堂課有原理、實作任務、互動模擬、立即回饋測驗、實機驗收勾選與筆記；右上角可匯出／匯入 JSON 學習進度。進度存在目前瀏覽器，不自動同步至 GitHub。**模擬練習不等於實體 ESP32 已測試成功。**
+
 ## 想完成的作品
 
 從完全零基礎起步，做出 **手掌大小**（概念尺寸高約95 × 寬80 × 深80 mm）、有可愛表情、能讀文字／語音聊天、會點頭轉頭的桌上型 AI 寵物。未來由 3D 列印製作可拆裝外殼，**所有電源入口安排在背面，正面不放電源孔。**
@@ -48,6 +66,7 @@
 - [完整學習路線](docs/06_開發路線圖.md)
 - [決策與待確認](docs/07_決策與待確認.md)
 - [官方參考資料](docs/08_參考連結.md)
+- [互動網頁使用與 GitHub Pages 設定](docs/10_互動網頁使用說明.md)
 - **[Lesson 06：串接 LLM 文字顯示](docs/09_Lesson06_LLM文字顯示.md)**
 
 ## 目前進度
