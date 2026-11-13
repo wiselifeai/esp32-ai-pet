@@ -22,6 +22,20 @@
 
 每堂課有原理、實作任務、互動模擬、立即回饋測驗、實機驗收勾選與筆記；右上角可匯出／匯入 JSON 學習進度。進度存在目前瀏覽器，不自動同步至 GitHub。**模擬練習不等於實體 ESP32 已測試成功。**
 
+## 🧩 Lesson 10｜AI 3D 外殼完整實作課程（新版）
+
+**[立即進入 3D 互動實作工作坊](https://wiselifeai.github.io/esp32-ai-pet/3d-design/guide/)**
+
+這不是要求你手動畫 FreeCAD：**拍照＋原廠 3D 結構檔＋卡尺量測 → AI 產生可編輯 FreeCAD Macro → 修改尺寸 → STL → Bambu Studio → 公司 P2S / ABS 打樣 → 量測回修**。
+
+已拆成 **10-A 至 10-H 八個實作關卡**，提供照片拍攝範例、尺寸表單、AI 提示詞一鍵複製、依尺寸產生 FreeCAD Macro、試印誤差計算、裝配驗收與進度 JSON 備份。
+
+- [8 關卡圖文完整教材](3d-design/tutorials/README.md)
+- [FreeCAD LCD 開窗測試片 Macro](3d-design/freecad/LCD_Window_Test.FCMacro)（範例數字是**教學假資料**）
+- [P2S / ABS 列印與安全](3d-design/printing/ABS-material-guide.md)
+
+**目前仍無實測 CAD 或可正式列印 STL；原廠結構資料需要和你的 31031 M 版實物核對。**
+
 ## 想完成的作品
 
 從完全零基礎起步，做出 **手掌大小**（概念尺寸高約95 × 寬80 × 深80 mm）、有可愛表情、能讀文字／語音聊天、會點頭轉頭的桌上型 AI 寵物。未來由 3D 列印製作可拆裝外殼，**所有電源入口安排在背面，正面不放電源孔。**
