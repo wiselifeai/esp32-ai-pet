@@ -36,7 +36,9 @@
 | 已購硬體 | **ESP32 主板** |
 | 待規劃硬體 | INMP441、MAX98357A、帶線 8Ω/1W 喇叭、SG90×2、PCA9685（暫定） |
 | 供電 | ESP32 使用自身 USB-C；兩顆 SG90 規劃獨立穩定 5V/2A，兩邊共地 |
-| 外殼 | 可拆 3D 列印外殼，USB／5V 入口位於 **背面** |
+| 外殼 | 可拆 3D 列印外殼，USB／5V 入口位於 **背面**；委託外部 3D 列印服務商製作 |
+| 3D 工具 | **FreeCAD** 為工程尺寸主工具；必要時用 Blender + Blender MCP 做外觀；PrusaSlicer 選用 |
+| 3D 交付 | 保留可編輯 FreeCAD 工程檔、STEP、各部件 STL、PDF 裝配圖；依實物量測後建立 |
 | AI | 透過 Wi-Fi → 安全代理服務 → 外部 LLM；不在 ESP32 上跑大型 LLM |
 
 ## 現在優先做的事：不用再買零件
@@ -62,6 +64,10 @@
 - [主板與硬體架構](docs/02_硬體架構.md)
 - [供電與安全](docs/03_供電與安全.md)
 - [3D 列印外殼規格](docs/04_3D外殼需求.md)
+- **[3D 工具與外包列印流程](docs/11_3D工具與外包列印流程.md)**
+- [3D 設計工作區](3d-design/README.md)
+- [零件實測尺寸表](3d-design/specs/measurements.md)
+- [列印廠商需求與驗收表](3d-design/assembly/printing-requirements.md)
 - [Lesson 01：Hello Robot](docs/05_Lesson01_開始實作.md)
 - [完整學習路線](docs/06_開發路線圖.md)
 - [決策與待確認](docs/07_決策與待確認.md)
@@ -73,6 +79,7 @@
 
 - [x] 設定產品方向與硬體預算
 - [x] 決定背面供電與可列印外殼
+- [x] 3D 製作方式確定為外包列印；選定 FreeCAD + Blender MCP（外觀）工具分工
 - [x] **主板已購買**
 - [x] 規劃 LLM → LCD 文字課程
 - [ ] 主板到貨，完成 L01～L02
