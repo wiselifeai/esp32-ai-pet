@@ -1,0 +1,126 @@
+# -*- coding: utf-8 -*-
+"""
+ESP32 AI Pet / LCD Window Fit Test
+Educational FreeCAD Macro (2026-11-13)
+
+THIS IS NOT A VERIFIED WAVESHARE PCB MODEL.
+The numeric defaults below are fictional training examples in millimetres.
+Replace them with measured dimensions or verified manufacturer drawing values.
+
+Creates a SIMPLE, FLAT LCD-window test coupon.
+Optionally creates standoff bosses ONLY when you enter measured hole positions.
+It does NOT make a finished outer shell, connector cutouts, or servo mounts.
+Run in FreeCAD GUI: Macro -> Macros -> Execute.
+Do not execute unknown Python macros from untrusted sources.
+"""
+
+import FreeCAD as App
+import FreeCADGui as Gui
+import Part
+from FreeCAD import Vector
+
+# === MODIFY ONLY THESE MEASURED DIMENSIONS (mm) ===
+PCB_W = 45.0          # TRAINING VALUE, not actual 31031 PCB width
+PCB_H = 84.0          # TRAINING VALUE, not actual 31031 PCB height
+LCD_X = 8.0           # LCD visible window: left edge from PCB left edge
+LCD_Y = 14.0          # LCD visible window: bottom edge from PCB bottom
+LCD_W = 29.0          # TRAINING VALUE: visible opening width
+LCD_H = 58.0          # TRAINING VALUE: visible opening height
+
+PANEL_MARGIN = 6.0    # Extra border around PCB
+PANEL_T = 2.5         # Test coupon thickness
+WINDOW_GAP = 0.30     # Extra gap on each side; tune after ABS test
+
+# Hole coordinates in mm measured from PCB BOTTOM-LEFT, viewed from LCD side.
+# LEAVE EMPTY until actual mounting hole centres are verified.
+# Example ONLY: MOUNT_HOLES = [(3.0, 4.0), (42.0, 4.0)]
+MOUNT_HOLES = []
+BOSS_DIAMETER = 6.0
+BOSS_HEIGHT = 3.0
+BOSS_HOLE_DIAMETER = 2.2
+
+# === END OF PARAMETER AREA ===
+
+def require_positive(name, value):
+    if not isinstance(value, (int, float)) or value <= 0:
+        raise ValueError("%s must be positive (mm), got %r" % (name, value))
+
+for _name in (
+    "PCB_W", "PCB_H", "LCD_W", "LCD_H",
+    "PANEL_MARGIN", "PANEL_T", "BOSS_DIAMETER",
+    "BOSS_HEIGHT", "BOSS_HOLE_DIAMETER",
+):
+    require_positive(_name, globals()[_name])
+
+if WINDOW_GAP < 0 or LCD_X < 0 or LCD_Y < 0:
+    raise ValueError("WINDOW_GAP, LCD_X and LCD_Y must be >= 0")
+
+if LCD_X + LCD_W > PCB_W or LCD_Y + LCD_H > PCB_H:
+    raise ValueError("LCD window must be inside PCB outline. Check measured origin.")
+
+if BOSS_HOLE_DIAMETER >= BOSS_DIAMETER:
+    raise ValueError("Boss hole must be smaller than boss diameter")
+
+panel_w = PCB_W + PANEL_MARGIN * 2
+panel_h = PCB_H + PANEL_MARGIN * 2
+window_x = PANEL_MARGIN + LCD_X - WINDOW_GAP
+window_y = PANEL_MARGIN + LCD_Y - WINDOW_GAP
+window_w = LCD_W + WINDOW_GAP * 2
+window_h = LCD_H + WINDOW_GAP * 2
+
+if (window_x < 0 or window_y < 0
+        or window_x + window_w > panel_w
+        or window_y + window_h > panel_h):
+    raise ValueError("Window exceeds the panel. Reduce clearance or enlarge margin.")
+
+# Validate hole centres and ensure bosses do not overlap the LCD opening.
+for hx, hy in MOUNT_HOLES:
+    if not (0 <= hx <= PCB_W and 0 <= hy <= PCB_H):
+        raise ValueError("Mount hole (%.2f, %.2f) outside PCB" % (hx, hy))
+    px, py = PANEL_MARGIN + hx, PANEL_MARGIN + hy
+    radius = BOSS_DIAMETER / 2.0
+    nearest_x = max(window_x, min(px, window_x + window_w))
+    nearest_y = max(window_y, min(py, window_y + window_h))
+    if ((px - nearest_x) ** 2 + (py - nearest_y) ** 2) ** .5 < radius:
+        raise ValueError("Boss overlaps LCD opening. Check hole position.")
+
+doc = App.newDocument("AI_Pet_LCD_Window_Test")
+
+base = Part.makeBox(panel_w, panel_h, PANEL_T, Vector(0, 0, 0))
+cut = Part.makeBox(window_w, window_h, PANEL_T + 2, Vector(window_x, window_y, -1))
+solid = base.cut(cut)
+
+# Optional mounting bosses. All geometry is in mm.
+for hx, hy in MOUNT_HOLES:
+    px, py = PANEL_MARGIN + hx, PANEL_MARGIN + hy
+    boss = Part.makeCylinder(
+        BOSS_DIAMETER / 2, BOSS_HEIGHT, Vector(px, py, PANEL_T)
+    )
+    solid = solid.fuse(boss)
+    bore = Part.makeCylinder(
+        BOSS_HOLE_DIAMETER / 2,
+        PANEL_T + BOSS_HEIGHT + 2,
+        Vector(px, py, -1),
+    )
+    solid = solid.cut(bore)
+
+solid = solid.removeSplitter()
+
+if solid.isNull() or not solid.isValid() or solid.Volume <= 0:
+    raise ValueError("Generated shape invalid; check measured dimensions.")
+
+part = doc.addObject("PartDesign::Feature", "TestPlate")
+part.Label = "LCD_Window_Test__MEASURE_BEFORE_PRINTING"
+part.Shape = solid
+part.ViewObject.ShapeColor = (0.89, 0.91, 0.86)
+part.ViewObject.LineColor = (0.12, 0.25, 0.25)
+doc.recompute()
+
+Gui.activeDocument().activeView().viewAxonometric()
+Gui.activeDocument().activeView().fitAll()
+
+print("LCD test coupon created (DEMO until dimensions verified).")
+print("Panel (mm): %.2f x %.2f x %.2f" % (panel_w, panel_h, PANEL_T))
+print("LCD opening (mm): %.2f x %.2f" % (window_w, window_h))
+print("Mount holes configured: %d" % len(MOUNT_HOLES))
+print("NEXT: save as .FCStd; select TestPlate -> File -> Export -> STL.")
