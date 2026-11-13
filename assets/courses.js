@@ -799,49 +799,50 @@ window.PET_COURSES = [
   {
     "id": "10",
     "title": "設計 3D 寵物外殼",
-    "short": "FreeCAD、Bambu Studio、P2S 打樣與裝配",
+    "short": "FreeCAD 建模、ABS 材料、Bambu Studio、P2S 實作",
     "stage": "產品整合",
     "minutes": 95,
     "icon": "box",
     "level": "設計實作",
-    "goal": "先實測電子零件，設計可拆式外殼與背面 USB-C／5V 供電入口；使用公司 Bambu Lab P2S 先印尺寸測試件，再做完整版。",
+    "goal": "以公司現有 ABS 材料在 Bambu Lab P2S 列印 LCD 與 PCB 固定座測試件，檢查翹曲、孔位精度，再開發背面電源孔的完整外殼。",
     "tools": [
       "FreeCAD（工程主模型）",
-      "Bambu Studio（P2S 切片）",
-      "公司 Bambu Lab P2S（實際機況待確認）",
+      "Bambu Studio（P2S + ABS 材料 Profile）",
+      "公司 Bambu Lab P2S（實際噴嘴／底板待確認）",
+      "公司 ABS 線材（品牌／型號待確認）",
       "Blender + Blender MCP（外觀選用）",
       "尺或卡尺"
     ],
     "status": "設計階段",
     "sections": [
       {
-        "title": "我們有 P2S：改為自己打樣",
-        "body": "公司已有 Bambu Lab P2S，這次不需外包。Bambu Lab 公開規格顯示 P2S 成形空間為 256×256×256 mm、標配 0.4mm 噴嘴。首先確認公司實際使用的噴嘴、底板、耗材、列印機使用規範；不要把標準規格直接視為公司設備的現況。",
+        "title": "確認 ABS 材料與公司 P2S 安全條件",
+        "body": "公司 P2S 已有 ABS 線材，不必另外購買 PLA。ABS 常用於耐熱與機構外殼，但相較 PLA 更可能收縮翹曲，列印時也可能產生超細顆粒與揮發性有機化學物質。先依公司規範確認操作許可與適當通風／局部排氣；機器的門蓋與濾網不是免通風保證。",
         "points": [
-          "FreeCAD：固定柱、精準孔位、可拆機構及 SG90 支架",
-          "Blender MCP：選用的可愛外觀及渲染，不能取代 CAD 尺寸驗證",
-          "Bambu Studio：匯入 STL，選擇 P2S 機型與相符耗材／噴嘴 Profile，保存 3MF",
-          "首次使用公司機器前依公司規範確認許可與操作安全"
+          "確認 ABS 線材品牌、系列、儲存狀態與是否需要乾燥",
+          "確認 P2S 實際噴嘴、底板，以及公司安全與通風規範",
+          "不要擅自修改公司機器 G-code／風扇／安全設備",
+          "先量測主板再建立模型，不把概念尺寸當已完成的工程圖"
         ]
       },
       {
-        "title": "先量主板，再畫小零件",
-        "body": "已購買 ESP32-S3-LCD-1.47B-M，但 LCD 開窗、PCB 固定孔及 USB-C 插拔空間必須量測。原訂約 95×80×80 mm 只是概念大小，不能直接視為可列印尺寸。",
+        "title": "FreeCAD：先設計可量測的尺寸測試件",
+        "body": "以 Waveshare ESP32-S3-LCD-1.47B-M 的實體 PCB、LCD 可視區、USB-C 插入空間、固定孔距為準，建立試片。整機目標約 95×80×80mm，但螺絲孔、固定柱及卡扣必須按 ABS 實際列印結果修正。",
         "points": [
-          "量測 PCB 長寬厚、孔距、LCD 有效區以及插頭突出尺寸",
-          "所有供電口在背面，前面板僅顯示 LCD 與必要收音孔",
-          "音訊與兩顆 SG90、PCA9685 需等選型確定再填入工程尺寸"
+          "第一片：LCD 開孔＋PCB 固定柱試片",
+          "第二片：背面 USB-C 和獨立 5V 電源開口",
+          "第三片：後續 SG90 兩軸支架的干涉試件",
+          "外殼要可拆卸維修，前面不設電源孔"
         ]
       },
       {
-        "title": "Bambu Studio：先試片再印外殼",
-        "body": "由 FreeCAD 分件輸出 STL（單位 mm）；在 Bambu Studio 選 P2S、確認底板與材料，先使用相容的 PLA 列印預設。標配 0.4mm 噴嘴可從 0.20mm 層高做起，但仍以公司設備經驗與測試結果修正。",
+        "title": "Bambu Studio：選 ABS，再列印與驗收",
+        "body": "將 STL（mm）匯入 Bambu Studio，選公司 P2S 與相符 ABS 耗材 Profile。若線材是 Bambu 原廠 ABS，其參考噴嘴溫度 240–270°C、熱床 80–100°C；若是其他品牌，以公司已驗證或該品牌的 Profile 為準，不直接套數值。",
         "points": [
-          "第一片：LCD 開窗與 PCB 固定柱",
-          "第二片：背面 USB-C 與獨立 5V 電源孔",
-          "第三片：SG90 支架和轉軸活動空間",
-          "保留 FreeCAD 原檔、STEP、分件 STL 與 Bambu Studio .3mf",
-          "確認裝配、公差、線材拉力保護後，才印完整的前殼／後殼／底座"
+          "標配 0.4mm 噴嘴可先考慮與 ABS 相容的 0.20mm 層高預設",
+          "視切片結果調整 Brim、附著和支撐，並注意溫差造成的翹曲",
+          "冷卻後量測開孔、螺絲柱與 PCB 實際裝配，紀錄 ABS 收縮與偏差",
+          "保存 .FCStd、STEP、分件 STL 與 Bambu Studio 3MF，版本記錄放 GitHub"
         ]
       }
     ],
@@ -851,55 +852,51 @@ window.PET_COURSES = [
       "description": "調整示意尺寸，觀察設計比例與背部供電位置。這不是可列印 STL。",
       "action": "恢復建議尺寸"
     },
-    "challenge": "先完成 ESP32 主板的實測尺寸表；設計一片包含 LCD 開孔及固定柱的 FreeCAD 測試片，準備用 Bambu Studio 切片、公司 P2S 列印。",
+    "challenge": "先確認公司 ABS 品牌與 P2S 的安全通風條件。收到主板後用 FreeCAD 畫出 LCD 開孔＋固定柱試片，用 Bambu Studio ABS Profile 切片，再實際列印並測量孔距誤差。",
     "quiz": [
       {
-        "q": "我們現在最適合使用哪個工具替 P2S 做切片？",
+        "q": "公司目前使用 ABS，Bambu Studio 應優先選哪種設定？",
         "options": [
-          "Bambu Studio",
-          "Arduino IDE",
-          "Serial Monitor"
-        ],
-        "answer": 0,
-        "why": "Bambu Studio 支援 Bambu Lab P2S，並能儲存包含列印設定的 .3mf 專案。"
-      },
-      {
-        "q": "在 P2S 上列印完整外殼之前，應優先做什麼？",
-        "options": [
-          "直接全套列印",
-          "先量測零件並列印局部孔位／固定柱測試件",
-          "把 USB-C 電源孔移到正面"
+          "PLA 預設",
+          "與公司 ABS 品牌／系列匹配的 Profile",
+          "任何材料都使用同樣溫度"
         ],
         "answer": 1,
-        "why": "先試印關鍵孔位與裝配公差，能減少耗材浪費與重新設計。"
+        "why": "不同 ABS 品牌與系列的溫度、冷卻需求可能不同，應以相符的官方或公司驗證 Profile 為準。"
+      },
+      {
+        "q": "為什麼 ABS 外殼應先列印小型孔位測試件？",
+        "options": [
+          "因為 ABS 可能收縮與翹曲，需實測公差",
+          "因為不能列印大型外殼",
+          "因為 USB-C 一定要放在正面"
+        ],
+        "answer": 0,
+        "why": "先量測實體尺寸偏差，才能修正 PCB 固定柱、螺絲孔、USB 開口與卡扣。"
       }
     ],
     "checks": [
-      "已確認公司 P2S 實際噴嘴、底板、耗材及使用規範",
-      "已實測 PCB／LCD／USB 尺寸並更新尺寸表",
-      "在 FreeCAD 建立可修改的固定柱與 LCD 開孔測試片",
-      "完成 Bambu Studio P2S 切片、試印與裝配檢查"
+      "確認公司 ABS 品牌／型號、P2S 噴嘴與安全通風／操作許可",
+      "量測 ESP32 PCB、LCD、USB-C 插入空間並記錄尺寸",
+      "FreeCAD 完成 LCD／PCB 固定柱試片，使用 Bambu Studio ABS Profile 切片",
+      "於公司 P2S 完成 ABS 試印，量測翹曲、孔位尺寸與實際裝配"
     ],
     "links": [
       [
-        "P2S 列印與建模流程",
+        "ABS 材料設定、公差與安全",
+        "../3d-design/printing/ABS-material-guide.md"
+      ],
+      [
+        "P2S 列印流程",
         "../3d-design/printing/P2S-print-workflow.md"
       ],
       [
-        "實測尺寸表",
+        "主板尺寸量測表",
         "../3d-design/specs/measurements.md"
       ],
       [
-        "P2S 打樣與驗收表",
-        "../3d-design/assembly/printing-requirements.md"
-      ],
-      [
-        "Bambu Studio 官方下載",
-        "https://bambulab.com/en/download/studio"
-      ],
-      [
-        "P2S 官方介紹",
-        "https://blog.bambulab.com/the-icon-redefined-meet-the-p2s-a-completely-reengineered-version-of-the-ultra-productive-p1-series/"
+        "NIOSH 3D 列印排放與通風",
+        "https://www.cdc.gov/niosh/bulletin/2018/3d-printing.html"
       ]
     ]
   },
