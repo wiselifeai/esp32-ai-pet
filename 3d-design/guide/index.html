@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#122C32">
+<title>Lesson 10 實作工作坊｜AI 建模 → FreeCAD → ABS / P2S</title>
+<meta name="description" content="ESP32 AI 寵物 3D 外殼完整實作：照片、原廠模型、尺寸、AI 提示詞、FreeCAD Macro、ABS 試印與版本管理。">
+<link rel="stylesheet" href="../../assets/style.css?v=20261112-desktop-v2">
+<link rel="stylesheet" href="./guide.css?v=20261113-full3d-v1">
+<script defer src="./guide.js?v=20261113-full3d-v1"></script>
+</head>
+<body>
+<header class="workshop-top">
+  <a class="workshop-brand" href="../../index.html"><span class="logo-sign">◡</span><span>PICO PET LAB <small>3D 製作工作坊 · LESSON 10</small></span></a>
+  <div class="top-links"><a href="../../lessons/10.html">← 返回原課程</a><a href="https://github.com/wiselifeai/esp32-ai-pet" target="_blank" rel="noopener">GitHub 專案 ↗</a></div>
+</header>
+<div class="workshop-layout">
+  <aside class="workshop-sidebar" aria-label="3D 製作關卡">
+    <div class="side-eyebrow">LEARNING PATH</div>
+    <h2>8 個實作關卡</h2>
+    <p>拍照、AI 建模到 ABS 試裝，全程不要求你手動畫 CAD。</p>
+    <nav class="step-nav">
+      <a href="#step-a"><span>10-A</span><b>原廠模型與拍照</b><i class="step-led" data-led="a"></i></a>
+      <a href="#step-b"><span>10-B</span><b>量測與參數</b><i class="step-led" data-led="b"></i></a>
+      <a href="#step-c"><span>10-C</span><b>請 AI 設計</b><i class="step-led" data-led="c"></i></a>
+      <a href="#step-d"><span>10-D</span><b>FreeCAD 自動建模</b><i class="step-led" data-led="d"></i></a>
+      <a href="#step-e"><span>10-E</span><b>完整外殼與裝配</b><i class="step-led" data-led="e"></i></a>
+      <a href="#step-f"><span>10-F</span><b>Bambu Studio / ABS</b><i class="step-led" data-led="f"></i></a>
+      <a href="#step-g"><span>10-G</span><b>試印量測與改版</b><i class="step-led" data-led="g"></i></a>
+      <a href="#step-h"><span>10-H</span><b>最終模型與交付</b><i class="step-led" data-led="h"></i></a>
+    </nav>
+    <div class="sidebar-summary"><div class="summary-number"><span id="done-count">0</span><span> / 8</span></div><div>已完成關卡</div><div class="progress-track"><div class="progress-fill" id="overall-bar"></div></div><button class="btn smallbtn" id="export-3d-progress">↓ 匯出 3D 進度</button><label class="btn smallbtn file-label" for="import-3d-progress">↑ 匯入進度</label><input type="file" id="import-3d-progress" accept=".json,application/json" hidden></div>
+  </aside>
+  <main class="workshop-main">
+    <div class="workshop-intro">
+      <div class="eyebrow">FROM PHOTO TO PRINTABLE PROTOTYPE</div>
+      <h1>你拍照、量尺寸。<br><span>AI 來幫你建模。</span></h1>
+      <p>這不只是工具介紹，而是能實際照著做的外殼開發教室。先用 Waveshare 原廠 3D 結構檔；沒有可靠模型時，才用照片＋卡尺＋AI 參數化腳本重建。先印測試件，再做完整機器人。</p>
+      <div class="hero-tags"><span>Waveshare ESP32-S3-LCD-1.47B-M</span><span>FreeCAD + Python Macro</span><span>Bambu Lab P2S / ABS</span><span>電源孔全部在背面</span></div>
+      <div class="notice"><strong>⚠️ 先分清楚兩件事</strong><p>這個網站不會自動將照片傳給 AI，也不會直接控制 FreeCAD 或 P2S。你在這裡記錄數據、複製提示詞、下載 Macro，然後在你的 Mac／AI 聊天工具／公司 P2S 執行。所有尺寸在實際量測前都不能當成正式工程值。</p></div>
+    </div>
+    <div class="workshop-content">
+      <section id="step-a" class="workshop-card" data-step="a">
+        <div class="step-head"><div><span class="step-tag">10-A · SOURCE</span><h2>先找原廠模型，再拍主板</h2><p>優先下載 Waveshare 3D Structure，這一步可能省下重新畫 PCB 的時間。</p></div><span class="step-emoji">📷</span></div>
+        <div class="action-row"><a class="btn primary" href="https://docs.waveshare.com/ESP32-S3-LCD-1.47B/Resources-And-Documents" target="_blank" rel="noopener">開啟 Waveshare 原廠 3D 資源 ↗</a><a class="btn" href="../tutorials/01_照片蒐集與原廠模型.md" target="_blank">完整圖文步驟 ↗</a></div>
+        <div class="photo-grid">
+          <div><span>01</span><strong>正面俯拍</strong><small>LCD 朝上、與尺同框</small></div>
+          <div><span>02</span><strong>背面俯拍</strong><small>PCB 背面、USB 位置</small></div>
+          <div><span>03</span><strong>左側照</strong><small>測元件突起高度</small></div>
+          <div><span>04</span><strong>右側照</strong><small>排針與邊緣空間</small></div>
+          <div><span>05</span><strong>USB 插線照</strong><small>實際接頭及彎線空間</small></div>
+          <div><span>06</span><strong>型號特寫</strong><small>確認 SKU 31031／修訂版</small></div>
+        </div>
+        <p class="note">照片可協助 AI 辨識，但不能取代卡尺量測。原廠 3D 結構也要和你買的 M 版實物核對。</p>
+        <label class="step-check"><input type="checkbox" data-finished="a"> 我已找原廠 3D 資料並完成必要的實物照片</label>
+      </section>
+
+      <section id="step-b" class="workshop-card" data-step="b">
+        <div class="step-head"><div><span class="step-tag">10-B · MEASURE</span><h2>把照片變成可以建模的參數</h2><p>先量 PCB 與 LCD。以下數字預設留空，避免把猜測值當真實尺寸。</p></div><span class="step-emoji">📐</span></div>
+        <p class="axis-hint"><strong>座標規則：</strong>從螢幕正面看，PCB 左下角為 (0,0)，X 向右，Y 向上，全部使用 mm。</p>
+        <div class="form-grid">
+          <label>PCB 寬度 <span>PCB_W · mm</span><input data-dim="PCB_W" type="number" step="0.01" min="0" placeholder="待量測"></label>
+          <label>PCB 高度 <span>PCB_H · mm</span><input data-dim="PCB_H" type="number" step="0.01" min="0" placeholder="待量測"></label>
+          <label>LCD 開窗左側 X <span>LCD_X · mm</span><input data-dim="LCD_X" type="number" step="0.01" min="0" placeholder="待量測"></label>
+          <label>LCD 開窗下側 Y <span>LCD_Y · mm</span><input data-dim="LCD_Y" type="number" step="0.01" min="0" placeholder="待量測"></label>
+          <label>LCD 開窗寬度 <span>LCD_W · mm</span><input data-dim="LCD_W" type="number" step="0.01" min="0" placeholder="待量測"></label>
+          <label>LCD 開窗高度 <span>LCD_H · mm</span><input data-dim="LCD_H" type="number" step="0.01" min="0" placeholder="待量測"></label>
+          <label>外框額外邊距 <span>PANEL_MARGIN · mm</span><input data-dim="PANEL_MARGIN" type="number" step="0.1" min="0" value="6"></label>
+          <label>測試片厚度 <span>PANEL_T · mm</span><input data-dim="PANEL_T" type="number" step="0.1" min="0" value="2.5"></label>
+          <label>開窗單側餘隙 <span>WINDOW_GAP · mm</span><input data-dim="WINDOW_GAP" type="number" step="0.05" min="0" value="0.3"></label>
+        </div>
+        <div id="dims-validation" role="status" class="validation-area">尚未輸入全部必要尺寸。</div>
+        <div class="dimensions-actions"><button id="save-dims" class="btn primary">✓ 儲存量測值</button><button id="download-dims" class="btn">↓ 匯出尺寸 JSON</button><a class="btn" href="../tutorials/02_尺寸量測與座標.md" target="_blank">量測教學 ↗</a></div>
+        <p class="note">固定孔中心、PCB 厚度、USB 插拔深度、SG90 尺寸等，請另填 GitHub 的 <a href="../specs/measurements.md">完整尺寸表</a>；沒有資料就留空，**不要讓 AI 補猜**。</p>
+        <label class="step-check"><input type="checkbox" data-finished="b"> 已用實際卡尺或核對原廠尺寸圖填入必要數據</label>
+      </section>
+
+      <section id="step-c" class="workshop-card" data-step="c">
+        <div class="step-head"><div><span class="step-tag">10-C · ASK AI</span><h2>按一個按鈕，產生 AI 建模指令</h2><p>把剛才量的數字組合成提示詞。將提示詞貼到 ChatGPT／Claude，並**另外附上主板照片與原廠 3D 資料**。</p></div><span class="step-emoji">✨</span></div>
+        <div class="prompt-box"><pre id="prompt-preview" aria-label="AI 建模提示詞"></pre></div>
+        <div class="action-row"><button id="copy-prompt" class="btn primary">⧉ 複製完整 AI 建模提示詞</button><a href="../tutorials/03_AI生成建模規格與提示詞.md" class="btn" target="_blank">看更多改版說法 ↗</a></div>
+        <p class="note">提示詞不會傳送給任何 AI。你可以選用已連線的 AI 工具，收到模型腳本時先檢查程式內容再執行。</p>
+        <label class="step-check"><input type="checkbox" data-finished="c"> AI 已根據我的照片與實測尺寸列出確定值／缺少資料／建模方案</label>
+      </section>
+
+      <section id="step-d" class="workshop-card" data-step="d">
+        <div class="step-head"><div><span class="step-tag">10-D · FREECAD MACRO</span><h2>不用手動畫：讓 FreeCAD 生成第一片模型</h2><p>我們先從矩形 LCD 開孔試片開始，不需要先做整隻機器人。</p></div><span class="step-emoji">🧩</span></div>
+        <div class="flow-panel">
+          <div><b>1</b><strong>下載／產生 Macro</strong><small>使用你輸入的實測尺寸</small></div>
+          <span>→</span>
+          <div><b>2</b><strong>FreeCAD 執行</strong><small>Macro → Macros → Execute</small></div>
+          <span>→</span>
+          <div><b>3</b><strong>檢查並匯出</strong><small>.FCStd + TestPlate STL</small></div>
+        </div>
+        <div class="action-row"><button id="download-macro" class="btn primary">↓ 以我的尺寸產生 FreeCAD Macro</button><a class="btn" href="../freecad/LCD_Window_Test.FCMacro" target="_blank">查看原始 Macro 程式 ↗</a><a class="btn" href="../tutorials/04_FreeCAD執行與修正.md" target="_blank">逐步操作指南 ↗</a></div>
+        <p id="macro-status" class="validation-area" role="status">要生成正式尺寸的測試片，請先完成 10-B。原始範例 Macro 含教學假尺寸，不能直接拿去列印正式支架。</p>
+        <div class="notice"><strong>⚠️ 此 Macro 只會產生 LCD 開窗試片</strong><p>尚未包含真正的 PCB 固定孔、USB-C 背孔、馬達或完整外殼。固定孔需要實測座標，不能由照片自動猜。若資料不足，請先用 FreeCAD 練習預覽，不要列印當成正式裝配件。</p></div>
+        <label class="step-check"><input type="checkbox" data-finished="d"> 我已在 FreeCAD 執行 Macro、修改至少一個尺寸，並儲存 .FCStd</label>
+      </section>
+
+      <section id="step-e" class="workshop-card" data-step="e">
+        <div class="step-head"><div><span class="step-tag">10-E · ASSEMBLY</span><h2>請 AI 設計完整外殼與裝配機構</h2><p>AI 會建議分件與裝配，工程尺寸仍須用實測資料核對。</p></div><span class="step-emoji">🛠</span></div>
+        <div class="parts-grid"><div><strong>前蓋</strong><small>LCD 開窗／麥克風孔</small></div><div><strong>主體</strong><small>PCB 固定／線槽</small></div><div><strong>後蓋</strong><small>USB-C + 5V 背面入口</small></div><div><strong>雙軸支架</strong><small>兩顆 SG90／線材運動</small></div><div><strong>底座</strong><small>重心／螺絲／防滑</small></div></div>
+        <p>檢查三件事：<strong>螢幕不被壓到、電源插頭能從背面插拔、後蓋拆得開</strong>。另外確認 SG90 在安全角度內不會撞殼或拉緊導線。</p>
+        <div class="action-row"><button id="copy-assembly" class="btn primary">⧉ 複製完整外殼 AI 設計指令</button><a class="btn" href="../tutorials/05_外殼分件與裝配檢查.md" target="_blank">裝配檢查教材 ↗</a></div>
+        <label class="step-check"><input type="checkbox" data-finished="e"> 已有完整分件方案、背面電源孔規劃及裝配干涉清單</label>
+      </section>
+
+      <section id="step-f" class="workshop-card" data-step="f">
+        <div class="step-head"><div><span class="step-tag">10-F · SLICE & PRINT</span><h2>Bambu Studio 切片 → 公司 P2S 列印 ABS</h2><p>不是把 STL 隨便送印：需要確認材料 Profile、支撐、方向和場域安全。</p></div><span class="step-emoji">🖨</span></div>
+        <div class="mini-steps">
+          <div><span>01</span><p>安裝 <a href="https://bambulab.com/en/download/studio" target="_blank" rel="noopener">Bambu Studio</a>，機器選 <strong>P2S</strong>。</p></div>
+          <div><span>02</span><p>核對公司實際噴嘴、底板、<strong>ABS 品牌／系列</strong>與相符切片 Profile。</p></div>
+          <div><span>03</span><p>匯入 STL（mm）→ Prepare（準備）→ 檢查尺寸、方向與支撐。</p></div>
+          <div><span>04</span><p>Slice（切片）→ Preview（預覽）→ 保存 <strong>.3mf</strong>。</p></div>
+          <div><span>05</span><p>確認公司列印許可、適當的工作場域通風／排氣，再開始**小件 ABS 試印**。</p></div>
+        </div>
+        <div class="notice"><strong>ABS 安全提醒</strong><p>ABS 列印可能排放揮發性物質與超細微粒，且較容易翹曲。機器有外殼與濾網不代表無需通風；依公司環安衛規範操作，不擅自改動 G-code 或安全裝置。</p></div>
+        <a class="btn" href="../tutorials/06_BambuStudio_ABS列印.md" target="_blank">開啟 Bambu Studio 完整操作教材 ↗</a>
+        <label class="step-check"><input type="checkbox" data-finished="f"> 我已用 P2S + 正確 ABS Profile 產生 3MF 並完成第一片安全打樣</label>
+      </section>
+
+      <section id="step-g" class="workshop-card" data-step="g">
+        <div class="step-head"><div><span class="step-tag">10-G · VERIFY & ITERATE</span><h2>印完怎麼改？用實測數字讓 AI 重新建模</h2><p>輸入設計值與實測值，計算偏差，再複製修改提示詞。</p></div><span class="step-emoji">🔁</span></div>
+        <div class="form-grid compact">
+          <label>CAD 原本設計值 <span>mm</span><input id="test-designed" type="number" min="0" step="0.01" placeholder="例如 30.00"></label>
+          <label>ABS 實際量測值 <span>mm</span><input id="test-measured" type="number" min="0" step="0.01" placeholder="例如 29.60"></label>
+        </div>
+        <div id="error-result" class="error-card">輸入兩個數字，這裡會顯示「實測－設計」的偏差。</div>
+        <label class="field-label" for="test-feature">量測對象</label><select id="test-feature"><option>LCD 開孔寬度</option><option>LCD 開孔高度</option><option>PCB 固定孔中心距</option><option>USB-C 背面開孔</option><option>SG90 支架尺寸</option></select>
+        <div class="action-row"><button id="copy-revision" class="btn primary">⧉ 複製 AI 修正提示詞</button><a href="../tutorials/07_ABS試印回修循環.md" class="btn" target="_blank">查看完整回修流程 ↗</a></div>
+        <p class="note">單一量測差值不能直接證明 ABS 有固定收縮率。需先排除量測錯誤、翹曲、切片輪廓等因素，再修正參數。</p>
+        <label class="step-check"><input type="checkbox" data-finished="g"> 已記錄至少一筆實測偏差，並完成一次有依據的 AI 改版與複測</label>
+      </section>
+
+      <section id="step-h" class="workshop-card" data-step="h">
+        <div class="step-head"><div><span class="step-tag">10-H · RELEASE</span><h2>整理正式外殼工程資料包</h2><p>保留可以修改的工程檔，比只剩下一堆 STL 更重要。</p></div><span class="step-emoji">📦</span></div>
+        <div class="release-grid"><div><strong>.FCStd</strong><span>FreeCAD 可編輯主檔</span></div><div><strong>.FCMacro</strong><span>AI 參數化建模腳本</span></div><div><strong>.STEP</strong><span>工程模型交換</span></div><div><strong>.STL</strong><span>每個零件的列印幾何</span></div><div><strong>.3MF</strong><span>Bambu Studio 列印專案</span></div><div><strong>圖面／照片</strong><span>組裝、版本、驗收</span></div></div>
+        <p class="note">不要上傳任何公司內部帳號、設備網路設定或機密模型到公開 GitHub。未完成的尺寸／檔案，請明確標註「待實測」「尚未建模」，不能假裝已經有正式 STL。</p>
+        <div class="action-row"><a href="../tutorials/08_版本管理與最終交付.md" class="btn primary" target="_blank">完整交付與驗收清單 ↗</a><a class="btn" href="../README.md" target="_blank">3D 設計資料夾 ↗</a></div>
+        <label class="step-check"><input type="checkbox" data-finished="h"> 已保存可編輯模型、分件 STL、列印設定與實際裝配驗收紀錄</label>
+      </section>
+      <div class="finish-footer"><div><strong>先做得出來，再追求更漂亮。</strong><p>下次回來可以繼續上課，勾選和量測數字會儲存在這個瀏覽器；若要換裝置請先匯出進度 JSON。</p></div><a href="../../lessons/10.html" class="btn primary">返回 Lesson 10 ↗</a></div>
+    </div>
+  </main>
+</div>
+<div class="toast" id="guide-toast" role="status" aria-live="polite"></div>
+<noscript><div class="no-js">互動功能需要啟用 JavaScript；你仍可透過 <a href="../tutorials/01_照片蒐集與原廠模型.md">GitHub Markdown 教材</a>閱讀完整步驟。</div></noscript>
+</body>
+</html>
