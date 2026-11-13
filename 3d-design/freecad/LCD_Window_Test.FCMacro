@@ -109,7 +109,7 @@ solid = solid.removeSplitter()
 if solid.isNull() or not solid.isValid() or solid.Volume <= 0:
     raise ValueError("Generated shape invalid; check measured dimensions.")
 
-part = doc.addObject("PartDesign::Feature", "TestPlate")
+part = doc.addObject("Part::Feature", "TestPlate")
 part.Label = "LCD_Window_Test__MEASURE_BEFORE_PRINTING"
 part.Shape = solid
 part.ViewObject.ShapeColor = (0.89, 0.91, 0.86)
