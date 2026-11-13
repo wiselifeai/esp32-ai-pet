@@ -2,11 +2,27 @@
 
 本目錄存放 AI 手掌型寵物的工程設計、尺寸、外觀及Bambu Lab P2S 列印交付資料。**目前僅有設計規格與模板，尚無實測 CAD／STL。**
 
+## 第一次開始：不用先學手動畫圖
+
+先開 **[3D 互動工作坊](guide/index.html)**，依次完成照片、量測、AI 提示詞與 FreeCAD Macro。每步都提供詳細 [10-A～10-H 圖文教材](tutorials/README.md)。
+
+- [3D 實作工作坊](guide/index.html)
+- [原廠資料與照片](tutorials/01_照片蒐集與原廠模型.md)
+- [量測座標與尺寸表](tutorials/02_尺寸量測與座標.md)
+- [AI 提示詞與 FreeCAD 操作](tutorials/03_AI生成建模規格與提示詞.md)
+- [FreeCAD 可修改測試片 Macro](freecad/LCD_Window_Test.FCMacro)
+- [ABS / P2S 打樣與回修](tutorials/07_ABS試印回修循環.md)
+
+原廠 [Waveshare 3D Structure](https://docs.waveshare.com/ESP32-S3-LCD-1.47B/Resources-And-Documents) 優先於手工從照片重建；仍需核對實際板型版本。
+
 ## 目錄規劃
 
 ```text
 3d-design/
 ├── README.md
+├── guide/                        # 互動式 HTML 工作坊
+├── tutorials/                    # 10-A～10-H 詳細操作教學
+├── freecad/                      # AI 建模 Macro 範例
 ├── specs/
 │   └── measurements.md           # 主板、螢幕、馬達、孔位的量測表
 ├── cad/                           # FreeCAD 原生 .FCStd、STEP（模型完成後建立）
