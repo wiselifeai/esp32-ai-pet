@@ -16,7 +16,8 @@
 └── assembly/
     └── printing-requirements.md   # P2S 打樣與驗收規格
 ├── printing/
-│   └── P2S-print-workflow.md      # Bambu Studio + 公司 P2S 實作流程
+│   ├── P2S-print-workflow.md      # Bambu Studio + 公司 P2S 實作流程
+│   └── ABS-material-guide.md      # ABS 列印與安全注意
 ```
 
 Git 不會追蹤空資料夾；有模型產生時再建立對應路徑，**不需要現在放假的 STL 佔位檔**。
@@ -27,7 +28,8 @@ Git 不會追蹤空資料夾；有模型產生時再建立對應路徑，**不�
 - 正面不設電源孔；**USB-C 與獨立 5V 電源入口均位於背面**。
 - 需可拆、可維修並預留雙 SG90 雙軸活動空間。
 - **FreeCAD 是工程尺寸主檔**；Blender MCP 用於外觀設計，不能取代孔位／公差驗證。
-- 使用**公司現有 Bambu Lab P2S** 自行打樣、修正、列印；不購買印表機。實際設備使用權限、耗材和噴嘴待確認。
+- 使用**公司現有 Bambu Lab P2S** 自行打樣、修正、列印；不購買印表機。
+- **材料已確認為 ABS**；其品牌／型號、設備許可、噴嘴及通風條件仍需確認。
 - 任何公差、固定孔尺寸或列印適配都以**公司 P2S 實測打樣結果**為準；Bambu Studio 保存 .3mf 列印專案。
 
-詳細流程：[Bambu Lab P2S 列印流程](printing/P2S-print-workflow.md)。
+詳細流程：[Bambu Lab P2S 列印流程](printing/P2S-print-workflow.md)｜[ABS 材料專項](printing/ABS-material-guide.md)。
