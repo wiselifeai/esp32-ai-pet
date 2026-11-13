@@ -798,105 +798,204 @@ window.PET_COURSES = [
   },
   {
     "id": "10",
-    "title": "設計 3D 寵物外殼",
-    "short": "FreeCAD 建模、ABS 材料、Bambu Studio、P2S 實作",
+    "title": "AI 輔助 3D 外殼設計",
+    "short": "8 個實作關卡：拍照 → AI 建模 → FreeCAD → ABS / P2S",
     "stage": "產品整合",
-    "minutes": 95,
+    "minutes": 420,
     "icon": "box",
-    "level": "設計實作",
-    "goal": "以公司現有 ABS 材料在 Bambu Lab P2S 列印 LCD 與 PCB 固定座測試件，檢查翹曲、孔位精度，再開發背面電源孔的完整外殼。",
+    "level": "8 關卡完整實作",
+    "goal": "你提供照片與卡尺量測，AI 建立可調參數的 FreeCAD 模型；再用公司 P2S 以 ABS 列印測試件、實測修正，最後完成可拆裝的寵物外殼。",
     "tools": [
-      "FreeCAD（工程主模型）",
-      "Bambu Studio（P2S + ABS 材料 Profile）",
-      "公司 Bambu Lab P2S（實際噴嘴／底板待確認）",
-      "公司 ABS 線材（品牌／型號待確認）",
-      "Blender + Blender MCP（外觀選用）",
-      "尺或卡尺"
+      "你的 ESP32-S3-LCD-1.47B-M 照片與實物",
+      "卡尺／尺＋Waveshare 原廠 3D Structure",
+      "Mac FreeCAD 與 AI 聊天工具",
+      "Bambu Studio + 公司 P2S / ABS",
+      "3D 實作工作坊（有尺寸輸入和 Macro 產生器）"
     ],
     "status": "設計階段",
     "sections": [
       {
-        "title": "確認 ABS 材料與公司 P2S 安全條件",
-        "body": "公司 P2S 已有 ABS 線材，不必另外購買 PLA。ABS 常用於耐熱與機構外殼，但相較 PLA 更可能收縮翹曲，列印時也可能產生超細顆粒與揮發性有機化學物質。先依公司規範確認操作許可與適當通風／局部排氣；機器的門蓋與濾網不是免通風保證。",
+        "title": "10-A｜找原廠 3D 檔、拍六種照片",
+        "body": "先到 Waveshare 官網找 ESP32-S3-LCD-1.47B 的 3D Structure，核對 31031 M 版本。拍正面、背面、左右側、USB 實際插線照、PCB 型號特寫，交給 AI 辨識。照片是參考，不可用來猜精密孔距。",
         "points": [
-          "確認 ABS 線材品牌、系列、儲存狀態與是否需要乾燥",
-          "確認 P2S 實際噴嘴、底板，以及公司安全與通風規範",
-          "不要擅自修改公司機器 G-code／風扇／安全設備",
-          "先量測主板再建立模型，不把概念尺寸當已完成的工程圖"
+          "原廠 Resources → Hardware Resources → 3D Structure，優先下載原始 CAD",
+          "照片和尺同框，鏡頭垂直於板面，USB 插線需要保留彎折空間",
+          "完整教學及拍攝清單：3D 實作工作坊 10-A"
         ]
       },
       {
-        "title": "FreeCAD：先設計可量測的尺寸測試件",
-        "body": "以 Waveshare ESP32-S3-LCD-1.47B-M 的實體 PCB、LCD 可視區、USB-C 插入空間、固定孔距為準，建立試片。整機目標約 95×80×80mm，但螺絲孔、固定柱及卡扣必須按 ABS 實際列印結果修正。",
+        "title": "10-B｜卡尺量測、統一座標、輸入參數",
+        "body": "不用手畫工程圖；你只需量出 PCB 寬高、LCD 開孔左下角位置、寬高，再把 USB、PCB 孔中心和排針高度記在尺寸表。互動工作坊提供表單和 2D 開窗預覽。",
         "points": [
-          "第一片：LCD 開孔＋PCB 固定柱試片",
-          "第二片：背面 USB-C 和獨立 5V 電源開口",
-          "第三片：後續 SG90 兩軸支架的干涉試件",
-          "外殼要可拆卸維修，前面不設電源孔"
+          "從 LCD 正面看，PCB 左下角為 (0,0)、X 向右、Y 向上、全用 mm",
+          "不確定的值保持空白；不能把 95×80×80mm 概念外形當 PCB 尺寸",
+          "先量主要六值，就能進入 AI 建模練習；其餘固定孔與 USB 精度要逐步補測"
         ]
       },
       {
-        "title": "Bambu Studio：選 ABS，再列印與驗收",
-        "body": "將 STL（mm）匯入 Bambu Studio，選公司 P2S 與相符 ABS 耗材 Profile。若線材是 Bambu 原廠 ABS，其參考噴嘴溫度 240–270°C、熱床 80–100°C；若是其他品牌，以公司已驗證或該品牌的 Profile 為準，不直接套數值。",
+        "title": "10-C｜把照片＋尺寸交給 AI 產生 CAD 方案",
+        "body": "在 3D 工作坊按「複製完整 AI 建模提示詞」，到 ChatGPT／Claude 另外附上照片、原廠模型與量測值。請 AI 列出已確認、推測、缺少數據，再產生可重跑的 FreeCAD Python Macro。",
         "points": [
-          "標配 0.4mm 噴嘴可先考慮與 ABS 相容的 0.20mm 層高預設",
-          "視切片結果調整 Brim、附著和支撐，並注意溫差造成的翹曲",
-          "冷卻後量測開孔、螺絲柱與 PCB 實際裝配，紀錄 ABS 收縮與偏差",
-          "保存 .FCStd、STEP、分件 STL 與 Bambu Studio 3MF，版本記錄放 GitHub"
+          "第一輪只做 LCD 開孔測試片，不要求一口氣產生整機精密外殼",
+          "用自然語言修改尺寸：例如 USB 孔提高 2mm、壁厚 2.5mm",
+          "網站只生成文字提示，不會自動將照片傳送到 AI 或連動 Blender／FreeCAD"
+        ]
+      },
+      {
+        "title": "10-D｜FreeCAD 直接執行 AI Macro，不必手動畫",
+        "body": "從工作坊用已量測數值下載 .FCMacro，FreeCAD 的 Macro → Macros 執行；看到 3D 測試片後，保存 .FCStd，選單 File → Export 匯出 STL。範例程式尚未在你的 Mac 實機驗證，遇到錯誤要記錄訊息。",
+        "points": [
+          "參數集中在 Macro 頂端，修改數值後重新執行即可生成新版本",
+          "只有 LCD 開孔，固定柱需已確認孔位才會生成，禁止由照片硬猜",
+          "FreeCAD 只是模型檢查、腳本執行、工程檔與 STL 匯出的工具"
+        ]
+      },
+      {
+        "title": "10-E｜AI 設計前蓋、主體、後蓋和雙馬達支架",
+        "body": "完成 LCD 試片後，再請 AI 逐步建立可拆裝的五個模組。檢查 LCD 不被壓、USB 和獨立 5V 電源孔在背面、SG90 轉軸不撞殼、線材有拉力保護。尚未買到的模組只能用待驗證的佔位盒表示。",
+        "points": [
+          "前蓋、主體、後蓋、頭頸雙軸支架、底座分件建模",
+          "AI 外觀可在 Blender + MCP 優化，但精密孔位和裝配回 FreeCAD 驗證",
+          "外殼約 95×80×80mm 是概念目標，實際放不下時應調整尺寸"
+        ]
+      },
+      {
+        "title": "10-F｜Bambu Studio ABS 切片與 P2S 試印",
+        "body": "用 STL 匯入 Bambu Studio，選公司 P2S、實際噴嘴與 ABS 線材 Profile。確認列印方向、支撐、尺寸和預估耗材，再 Save Project 為 3MF。依公司授權與通風安全規範列印，先小件測試。",
+        "points": [
+          "ABS 品牌、噴嘴、底板和通風措施先確認；不要直接套 PLA Profile",
+          "ABS 可能翹曲與排放微粒／VOC，機器密閉並不代表不需通風",
+          "先印 LCD 固定片，再 USB 背面孔，之後才是馬達支架與完整殼體"
+        ]
+      },
+      {
+        "title": "10-G｜量誤差、複製提示詞叫 AI 修改",
+        "body": "用卡尺記錄『設計值、實際值、差值』並拍下試裝結果。工作坊可以計算孔距偏差並生成 AI 修改提示詞。先判斷模型、切片、收縮、翹曲或量測問題，再改 1～2 個參數重新印。",
+        "points": [
+          "誤差＝實測－設計，不能拿單一數字當作所有 ABS 的固定收縮率",
+          "每次保存 FreeCAD、STL、3MF 版本與重新試裝結果",
+          "真正達到裝配要求後才標記驗收"
+        ]
+      },
+      {
+        "title": "10-H｜輸出正式工程資料包並完成裝配",
+        "body": "保留 FreeCAD 原生 .FCStd、AI Macro、STEP、分件 STL、Bambu Studio 3MF、PDF 裝配圖與測試照片。確認所有電源孔在背面、結構可拆、SG90 不干涉、ABS 沒有重大翹曲，才能視為完成。",
+        "points": [
+          "不要把概念示意 STL 當正式可列印交付物",
+          "大型模型與公司內部資料上傳前先檢查公開 GitHub 的保密要求",
+          "進度可在互動工作坊分關卡勾選並匯出 JSON 備份"
         ]
       }
     ],
     "lab": {
       "type": "shell",
-      "title": "機身尺寸配置器",
-      "description": "調整示意尺寸，觀察設計比例與背部供電位置。這不是可列印 STL。",
-      "action": "恢復建議尺寸"
+      "title": "尺寸與外殼比例模擬（入門）",
+      "description": "此處僅示意外觀尺寸。要進行照片清單、實測尺寸表、2D 開窗預覽、AI 提示詞、FreeCAD Macro 下載與 ABS 試印記錄，請開啟下方連結的 3D 實作工作坊。",
+      "action": "恢復概念尺寸"
     },
-    "challenge": "先確認公司 ABS 品牌與 P2S 的安全通風條件。收到主板後用 FreeCAD 畫出 LCD 開孔＋固定柱試片，用 Bambu Studio ABS Profile 切片，再實際列印並測量孔距誤差。",
+    "challenge": "開啟 3D 實作工作坊，先完成 10-A 主板拍照及原廠 3D 模型查找。主板到貨後填完 10-B 實測六個數字，再做 10-D FreeCAD LCD 開孔試片；用 ABS 在 P2S 試印後回傳實測誤差。",
     "quiz": [
       {
-        "q": "公司目前使用 ABS，Bambu Studio 應優先選哪種設定？",
+        "q": "有 Waveshare 官方 3D Structure 時，最有效率的第一步？",
         "options": [
-          "PLA 預設",
-          "與公司 ABS 品牌／系列匹配的 Profile",
-          "任何材料都使用同樣溫度"
+          "直接丟掉原廠資料、靠照片猜尺寸",
+          "下載並核對原廠 3D 結構是否符合 31031 M 版",
+          "先印整個外殼"
         ],
         "answer": 1,
-        "why": "不同 ABS 品牌與系列的溫度、冷卻需求可能不同，應以相符的官方或公司驗證 Profile 為準。"
+        "why": "優先使用可核對的原廠幾何資料，照片與卡尺用來辨識修訂版和驗證尺寸。"
       },
       {
-        "q": "為什麼 ABS 外殼應先列印小型孔位測試件？",
+        "q": "AI 看了 PCB 照片，但孔中心距不清楚，應怎麼做？",
         "options": [
-          "因為 ABS 可能收縮與翹曲，需實測公差",
-          "因為不能列印大型外殼",
-          "因為 USB-C 一定要放在正面"
+          "請 AI 猜個值",
+          "以原廠機構圖或實物卡尺量測，不確定就留待確認",
+          "直接固定用 3mm"
+        ],
+        "answer": 1,
+        "why": "精密配合尺寸必須有來源，不能把圖片估算當成工程驗證。"
+      },
+      {
+        "q": "想改 USB-C 開孔高度，最適合的做法？",
+        "options": [
+          "修改 FreeCAD 參數，再檢查連接器與裝配",
+          "直接放大 STL 不檢查其他孔",
+          "只改 Blender 渲染顏色"
         ],
         "answer": 0,
-        "why": "先量測實體尺寸偏差，才能修正 PCB 固定柱、螺絲孔、USB 開口與卡扣。"
+        "why": "改動應由可編輯工程參數出發，並重新檢查干涉、保留新版模型。"
+      },
+      {
+        "q": "公司 P2S 目前 ABS 的第一版試印應先做什麼？",
+        "options": [
+          "用 PLA Profile 直接列印完整外殼",
+          "先確認材料 Profile／通風，列印小尺寸測試片",
+          "直接修改公司機器的安全風扇 G-code"
+        ],
+        "answer": 1,
+        "why": "ABS 排放與翹曲風險需要正確的材料設定及環境控制，先試印孔位可以減少浪費。"
+      },
+      {
+        "q": "ABS 試印孔徑比設計小 0.4mm，是否全模型一律加 0.4mm？",
+        "options": [
+          "是，所有孔都加",
+          "否，先排查量測、切片、收縮和翹曲，依證據改參數",
+          "改成固定 100% 比例縮放"
+        ],
+        "answer": 1,
+        "why": "單一尺寸誤差並不足以判斷所有幾何的補償值。"
       }
     ],
     "checks": [
-      "確認公司 ABS 品牌／型號、P2S 噴嘴與安全通風／操作許可",
-      "量測 ESP32 PCB、LCD、USB-C 插入空間並記錄尺寸",
-      "FreeCAD 完成 LCD／PCB 固定柱試片，使用 Bambu Studio ABS Profile 切片",
-      "於公司 P2S 完成 ABS 試印，量測翹曲、孔位尺寸與實際裝配"
+      "10-A 已查原廠結構資料並拍攝正、背、側面和 USB 插線照片",
+      "10-B 已量 PCB、LCD 與 USB 關鍵尺寸，未量測部分明確標示",
+      "10-C AI 已列出確定／未知尺寸並提出可改參數的建模方案",
+      "10-D 已在 FreeCAD 執行 Macro、調參數，保存可編輯 .FCStd",
+      "10-E 已規劃可拆外殼與兩路背面電源孔、SG90 干涉條件",
+      "10-F 以 P2S 正確 ABS Profile 完成小件列印並記錄安全條件",
+      "10-G 已用實測誤差請 AI 回修參數，至少完成一次再列印驗證",
+      "10-H 保存 .FCStd、STEP、分件 STL、3MF 與裝配驗收資料"
     ],
     "links": [
       [
-        "ABS 材料設定、公差與安全",
-        "../3d-design/printing/ABS-material-guide.md"
+        "★ 開啟 3D 外殼互動實作工作坊",
+        "../3d-design/guide/index.html"
       ],
       [
-        "P2S 列印流程",
-        "../3d-design/printing/P2S-print-workflow.md"
+        "10-A：照片與官方 3D 資源",
+        "../3d-design/tutorials/01_照片蒐集與原廠模型.md"
       ],
       [
-        "主板尺寸量測表",
-        "../3d-design/specs/measurements.md"
+        "10-B：尺寸量測與座標",
+        "../3d-design/tutorials/02_尺寸量測與座標.md"
       ],
       [
-        "NIOSH 3D 列印排放與通風",
-        "https://www.cdc.gov/niosh/bulletin/2018/3d-printing.html"
+        "10-C：AI 建模提示詞",
+        "../3d-design/tutorials/03_AI生成建模規格與提示詞.md"
+      ],
+      [
+        "10-D：FreeCAD Macro 執行",
+        "../3d-design/tutorials/04_FreeCAD執行與修正.md"
+      ],
+      [
+        "10-E：機構裝配",
+        "../3d-design/tutorials/05_外殼分件與裝配檢查.md"
+      ],
+      [
+        "10-F：Bambu Studio / ABS",
+        "../3d-design/tutorials/06_BambuStudio_ABS列印.md"
+      ],
+      [
+        "10-G：ABS 試印回修",
+        "../3d-design/tutorials/07_ABS試印回修循環.md"
+      ],
+      [
+        "10-H：正式交付",
+        "../3d-design/tutorials/08_版本管理與最終交付.md"
+      ],
+      [
+        "FreeCAD 自動建模 Macro",
+        "../3d-design/freecad/LCD_Window_Test.FCMacro"
       ]
     ]
   },
