@@ -799,46 +799,49 @@ window.PET_COURSES = [
   {
     "id": "10",
     "title": "設計 3D 寵物外殼",
-    "short": "FreeCAD 精準建模、Blender MCP 外觀、STL 委外列印",
+    "short": "FreeCAD、Bambu Studio、P2S 打樣與裝配",
     "stage": "產品整合",
     "minutes": 95,
     "icon": "box",
     "level": "設計實作",
-    "goal": "從主板實際尺寸開始建可拆式外殼，完成背面供電孔與機構驗證，輸出可交給外部廠商列印的 STL 資料包。",
+    "goal": "先實測電子零件，設計可拆式外殼與背面 USB-C／5V 供電入口；使用公司 Bambu Lab P2S 先印尺寸測試件，再做完整版。",
     "tools": [
-      "FreeCAD（必要）",
-      "Blender + Blender MCP（外觀第二階段）",
-      "委外 3D 列印服務商",
-      "實測的電子零件／尺或卡尺"
+      "FreeCAD（工程主模型）",
+      "Bambu Studio（P2S 切片）",
+      "公司 Bambu Lab P2S（實際機況待確認）",
+      "Blender + Blender MCP（外觀選用）",
+      "尺或卡尺"
     ],
     "status": "設計階段",
     "sections": [
       {
-        "title": "先選工具：工程精度比漂亮更重要",
-        "body": "這個專案採 FreeCAD 為尺寸和裝配的工程主檔。Blender + Blender MCP 只負責可愛造型及預覽，外觀修改必須再確認螺絲孔、LCD 視窗和接頭不被破壞。由外部 3D 列印廠商製作，不需要自己買列印機。",
+        "title": "我們有 P2S：改為自己打樣",
+        "body": "公司已有 Bambu Lab P2S，這次不需外包。Bambu Lab 公開規格顯示 P2S 成形空間為 256×256×256 mm、標配 0.4mm 噴嘴。首先確認公司實際使用的噴嘴、底板、耗材、列印機使用規範；不要把標準規格直接視為公司設備的現況。",
         "points": [
-          "FreeCAD：PCB 固定柱、LCD 開窗、SG90 支架、背部電源口",
-          "Blender MCP：圓潤外觀、造型修改、預覽；第二階段才安裝",
-          "PrusaSlicer 可選擇性查看 STL，正式切片交廠商處理"
+          "FreeCAD：固定柱、精準孔位、可拆機構及 SG90 支架",
+          "Blender MCP：選用的可愛外觀及渲染，不能取代 CAD 尺寸驗證",
+          "Bambu Studio：匯入 STL，選擇 P2S 機型與相符耗材／噴嘴 Profile，保存 3MF",
+          "首次使用公司機器前依公司規範確認許可與操作安全"
         ]
       },
       {
-        "title": "先量實際尺寸，再畫外殼",
-        "body": "我們已購買 ESP32-S3-LCD-1.47B-M，先用尺或卡尺量測 PCB、LCD、USB-C 插頭與固定孔位。95×80×80 mm 只是目標，不能直接拿來送印。其餘麥克風、喇叭、PCA9685 和兩顆 SG90 到貨後再量測。",
+        "title": "先量主板，再畫小零件",
+        "body": "已購買 ESP32-S3-LCD-1.47B-M，但 LCD 開窗、PCB 固定孔及 USB-C 插拔空間必須量測。原訂約 95×80×80 mm 只是概念大小，不能直接視為可列印尺寸。",
         "points": [
-          "正面只有 LCD 表情及必要收音孔",
-          "USB-C 與獨立 5V 馬達電源入口都設在背面",
-          "外殼要可拆、可維修、可固定線材，且雙軸轉頭不干涉"
+          "量測 PCB 長寬厚、孔距、LCD 有效區以及插頭突出尺寸",
+          "所有供電口在背面，前面板僅顯示 LCD 與必要收音孔",
+          "音訊與兩顆 SG90、PCA9685 需等選型確定再填入工程尺寸"
         ]
       },
       {
-        "title": "把 STL 交給外面列印廠商",
-        "body": "第一次不用直接印全套。先印 LCD 開孔、背面 USB 孔、螺絲柱、SG90 支架尺寸測試件，確認公差後再列印前蓋／後蓋／主體／頭頸／底座。外包不代表省略工程檢查。",
+        "title": "Bambu Studio：先試片再印外殼",
+        "body": "由 FreeCAD 分件輸出 STL（單位 mm）；在 Bambu Studio 選 P2S、確認底板與材料，先使用相容的 PLA 列印預設。標配 0.4mm 噴嘴可從 0.20mm 層高做起，但仍以公司設備經驗與測試結果修正。",
         "points": [
-          "FreeCAD 保留可編輯 .FCStd；另輸出 STEP",
-          "列印廠商收 STL：每個部件獨立檔、單位 mm",
-          "附列印方向／材質與 PDF 裝配說明，詢價時確認公差、支撐、運費與交期",
-          "第一版可先詢問 FDM / PLA 打樣；若需要其他性質再比較 PETG"
+          "第一片：LCD 開窗與 PCB 固定柱",
+          "第二片：背面 USB-C 與獨立 5V 電源孔",
+          "第三片：SG90 支架和轉軸活動空間",
+          "保留 FreeCAD 原檔、STEP、分件 STL 與 Bambu Studio .3mf",
+          "確認裝配、公差、線材拉力保護後，才印完整的前殼／後殼／底座"
         ]
       }
     ],
@@ -848,51 +851,55 @@ window.PET_COURSES = [
       "description": "調整示意尺寸，觀察設計比例與背部供電位置。這不是可列印 STL。",
       "action": "恢復建議尺寸"
     },
-    "challenge": "完成主板量測表與前、側、背三視圖；標示兩個背面電源口，製作可交給廠商的小型孔位測試片規格。",
+    "challenge": "先完成 ESP32 主板的實測尺寸表；設計一片包含 LCD 開孔及固定柱的 FreeCAD 測試片，準備用 Bambu Studio 切片、公司 P2S 列印。",
     "quiz": [
       {
-        "q": "USB 電源開孔應放在哪裡？",
+        "q": "我們現在最適合使用哪個工具替 P2S 做切片？",
         "options": [
-          "正面 LCD 下方",
-          "背面",
-          "眼睛中央"
-        ],
-        "answer": 1,
-        "why": "本專案需求已確定所有供電入口位於背面。"
-      },
-      {
-        "q": "正式列印完整外殼前應先做什麼？",
-        "options": [
-          "先量測與測試小型尺寸片",
-          "直接依猜測尺寸列印",
-          "把馬達黏死"
+          "Bambu Studio",
+          "Arduino IDE",
+          "Serial Monitor"
         ],
         "answer": 0,
-        "why": "先確認孔位和公差，可減少浪費。"
+        "why": "Bambu Studio 支援 Bambu Lab P2S，並能儲存包含列印設定的 .3mf 專案。"
+      },
+      {
+        "q": "在 P2S 上列印完整外殼之前，應優先做什麼？",
+        "options": [
+          "直接全套列印",
+          "先量測零件並列印局部孔位／固定柱測試件",
+          "把 USB-C 電源孔移到正面"
+        ],
+        "answer": 1,
+        "why": "先試印關鍵孔位與裝配公差，能減少耗材浪費與重新設計。"
       }
     ],
     "checks": [
-      "完成 PCB／LCD／USB／馬達的實測尺寸與照片",
-      "完成 FreeCAD 工程佔位模型與背面兩路電源孔",
-      "完成試印件 STL 並向列印廠商確認材料／公差／報價",
-      "收到測試件並完成實際裝配驗證"
+      "已確認公司 P2S 實際噴嘴、底板、耗材及使用規範",
+      "已實測 PCB／LCD／USB 尺寸並更新尺寸表",
+      "在 FreeCAD 建立可修改的固定柱與 LCD 開孔測試片",
+      "完成 Bambu Studio P2S 切片、試印與裝配檢查"
     ],
     "links": [
       [
-        "完整 3D 工具與外包製作流程",
-        "../docs/11_3D工具與外包列印流程.md"
+        "P2S 列印與建模流程",
+        "../3d-design/printing/P2S-print-workflow.md"
       ],
       [
-        "主板實測尺寸模板",
+        "實測尺寸表",
         "../3d-design/specs/measurements.md"
       ],
       [
-        "列印需求與詢價表",
+        "P2S 打樣與驗收表",
         "../3d-design/assembly/printing-requirements.md"
       ],
       [
-        "FreeCAD",
-        "https://www.freecad.org/"
+        "Bambu Studio 官方下載",
+        "https://bambulab.com/en/download/studio"
+      ],
+      [
+        "P2S 官方介紹",
+        "https://blog.bambulab.com/the-icon-redefined-meet-the-p2s-a-completely-reengineered-version-of-the-ultra-productive-p1-series/"
       ]
     ]
   },
