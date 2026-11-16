@@ -70,7 +70,7 @@
     var values=KEY_LIST.map(function(k){var v=num(k);return k+" = "+(v===null?"【待實測】":v+" mm");}).join("\n");
     var p="你是有產品開發與 3D 列印經驗的機構工程設計助理。\n\n";
     p+="專案：手掌型 ESP32 AI 桌上寵物，使用 Waveshare ESP32-S3-LCD-1.47B-M（SKU 31031）。\n";
-    p+="製造：FreeCAD 可編輯參數化建模 → STL → Bambu Studio → 公司 Bambu Lab P2S，材料 ABS。\n";
+    p+="製造：FreeCAD 可編輯參數化建模 → STL → Bambu Studio → 公司 Bambu Lab X1 Carbon（X1C），材料 ABS。\n";
     p+="概念外型：約高 95、寬 80、深 80 mm（不保證能放下全部配件）。\n";
     p+="硬限制：螢幕在正面；USB-C 與馬達獨立 5V 電源入口均只能位於背面；外殼可拆裝、便於維修。預留兩個 SG90、麥克風、喇叭和控制模組。\n";
     p+="座標：LCD 面朝向我，PCB 左下角是 (0,0)，X 向右、Y 向上；全部使用毫米。\n\n";
@@ -189,7 +189,7 @@
       updateResult();
       if(!errorState){notify("請先輸入有效的設計值與實測值。");return;}
       var x=errorState;
-      copy("我用 Bambu Lab P2S + ABS 列印 ESP32 AI 寵物測試件。\\n量測項目："+x.feature+"\\nCAD 設計："+x.design.toFixed(2)+" mm\\nABS 實測："+x.measured.toFixed(2)+" mm\\n誤差（實測−設計）："+x.delta.toFixed(2)+" mm\\n請不要直接當成固定收縮率。先推測造成差異的量測方法、翹曲、切片輪廓、材料 Profile 和 CAD 來源；請我補照片和更多量測，再給出最小的 FreeCAD 參數修改與第二次試印驗收方法。","ABS 改版指令已複製。");
+      copy("我用 Bambu Lab X1 Carbon（X1C） + ABS 列印 ESP32 AI 寵物測試件。\\n量測項目："+x.feature+"\\nCAD 設計："+x.design.toFixed(2)+" mm\\nABS 實測："+x.measured.toFixed(2)+" mm\\n誤差（實測−設計）："+x.delta.toFixed(2)+" mm\\n請不要直接當成固定收縮率。先推測造成差異的量測方法、翹曲、切片輪廓、材料 Profile 和 CAD 來源；請我補照片和更多量測，再給出最小的 FreeCAD 參數修改與第二次試印驗收方法。","ABS 改版指令已複製。");
     });
     byId("export-3d-progress").addEventListener("click",exportState);
     byId("import-3d-progress").addEventListener("change",function(e){importState(e.target.files[0]);});
