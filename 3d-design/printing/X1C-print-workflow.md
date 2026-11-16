@@ -1,6 +1,6 @@
 # Bambu Lab X1 Carbon（X1C）｜AI 寵物外殼列印流程（v2.0）
 
-更新：2026-11-16。**使用者提供實機照片，已確認公司設備為 **Bambu Lab X1-Carbon（X1C）**，先前誤記為 P2S，使用者規劃使用該設備列印；已確認線材材料為 **ABS**；實際安裝噴嘴、**ABS 品牌／系列**、Bambu Studio Profile、通風條件及公司使用規則仍待核實。**
+更新：2026-11-16。**實物照片確認公司列印機為 Bambu Lab X1-Carbon（X1C），材料為 ABS。** 先前的 P2S 記錄已更正；實際安裝噴嘴、ABS 品牌／系列、Bambu Studio Profile、通風條件及公司使用規則仍待核實。
 
 ## 製造方式變更
 
@@ -32,15 +32,15 @@
 | 列印專案 | Bambu Studio 使用 .3mf 專案格式 | 保存 STL（幾何）與 .3mf（列印設定）兩種檔案 |
 
 原廠參考：
-- [Bambu Lab X1C 介紹](https://blog.bambulab.com/the-icon-redefined-meet-the-x1c-a-completely-reengineered-version-of-the-ultra-productive-p1-series/)
-- [X1C 規格表（PDF）](https://store-test.bblcdn.com/s7/default/ce5ed546153740e5816c1aedd37da14a/spec.pdf)
+- [Bambu Lab X1 Carbon 官方產品與規格](https://bambulab-eu.myshopify.com/products/x1-carbon)
+- [Bambu Lab X1 Carbon 官方規格 PDF](https://public-cdn.bambulab.com/store/bambulab-X1-carbon-tech-specs.pdf?v=20240831043606)
 - [Bambu Studio 官方下載（macOS）](https://bambulab.com/en/download/studio)
 
 ## 第一版切片策略（僅初始方案）
 
 以公司現有 X1C 的噴嘴、底板、耗材為準；**不要直接覆蓋公司既有列印設定**。
 
-1. Bambu Studio 中選擇機型 **X1C**，再確認噴嘴規格、底板、耗材配置與廠內預設 profile。
+1. Bambu Studio 中選擇機型 **X1 Carbon**，再確認噴嘴規格、底板、耗材配置與廠內預設 profile。
 2. 第一版以 **ABS** 為材料；若是標配 0.4 mm 硬化鋼噴嘴，可從 **0.20 mm 層高、對應 ABS 品牌的官方／廠內 Profile** 起步。Bambu 自家 ABS 參考噴嘴溫度 **240～270°C**、熱床溫度 **80～100°C**，但因公司實際線材品牌尚未確認，**不得直接覆寫或套用這些數值**。
 3. 外殼預估壁厚 **2～2.5 mm** 僅作 CAD 初始方向，並視固定柱強度、表面、裝配公差與切片結果調整。
 4. 先做小件測試：PCB 支架／LCD 開孔 → USB-C 背面插拔孔 → 螺絲柱／固定扣 → SG90 支架。
