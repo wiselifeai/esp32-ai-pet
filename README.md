@@ -26,13 +26,13 @@
 
 **[立即進入 3D 互動實作工作坊](https://wiselifeai.github.io/esp32-ai-pet/3d-design/guide/)**
 
-這不是要求你手動畫 FreeCAD：**拍照＋原廠 3D 結構檔＋卡尺量測 → AI 產生可編輯 FreeCAD Macro → 修改尺寸 → STL → Bambu Studio → 公司 P2S / ABS 打樣 → 量測回修**。
+這不是要求你手動畫 FreeCAD：**拍照＋原廠 3D 結構檔＋卡尺量測 → AI 產生可編輯 FreeCAD Macro → 修改尺寸 → STL → Bambu Studio → 公司 X1 Carbon（X1C） / ABS 打樣 → 量測回修**。
 
 已拆成 **10-A 至 10-H 八個實作關卡**，提供照片拍攝範例、尺寸表單、AI 提示詞一鍵複製、依尺寸產生 FreeCAD Macro、試印誤差計算、裝配驗收與進度 JSON 備份。
 
 - [8 關卡圖文完整教材](3d-design/tutorials/README.md)
 - [FreeCAD LCD 開窗測試片 Macro](3d-design/freecad/LCD_Window_Test.FCMacro)（範例數字是**教學假資料**）
-- [P2S / ABS 列印與安全](3d-design/printing/ABS-material-guide.md)
+- [X1C / ABS 列印與安全](3d-design/printing/ABS-material-guide.md)
 
 **目前仍無實測 CAD 或可正式列印 STL；原廠結構資料需要和你的 31031 M 版實物核對。**
 
@@ -50,9 +50,9 @@
 | 已購硬體 | **ESP32 主板** |
 | 待規劃硬體 | INMP441、MAX98357A、帶線 8Ω/1W 喇叭、SG90×2、PCA9685（暫定） |
 | 供電 | ESP32 使用自身 USB-C；兩顆 SG90 規劃獨立穩定 5V/2A，兩邊共地 |
-| 外殼 | 可拆 3D 列印外殼，USB／5V 入口位於 **背面**；使用公司 Bambu Lab P2S 自行打樣及列印 |
-| 3D 工具 | **FreeCAD** 為工程尺寸主工具；必要時用 Blender + Blender MCP 做外觀；Bambu Studio 為 P2S 切片工具 |
-| 3D 列印設備 | **公司 Bambu Lab P2S**：成形空間 256×256×256 mm；標配 0.4 mm 噴嘴，實際機況待確認 |
+| 外殼 | 可拆 3D 列印外殼，USB／5V 入口位於 **背面**；使用公司 Bambu Lab X1 Carbon（X1C） 自行打樣及列印 |
+| 3D 工具 | **FreeCAD** 為工程尺寸主工具；必要時用 Blender + Blender MCP 做外觀；Bambu Studio 為 X1C 切片工具 |
+| 3D 列印設備 | **公司 Bambu Lab X1 Carbon（X1C）**：成形空間 256×256×256 mm；標配 0.4 mm 硬化鋼噴嘴，實際機況待確認 |
 | **3D 列印材料** | **ABS（已確認）**；優先確認品牌、相容 Profile、通風及安全規範後試印 |
 | 3D 交付 | 保留可編輯 FreeCAD 工程檔、STEP、各部件 STL、Bambu Studio 3MF、PDF 裝配圖；依實物量測後建立 |
 | AI | 透過 Wi-Fi → 安全代理服務 → 外部 LLM；不在 ESP32 上跑大型 LLM |
@@ -80,12 +80,12 @@
 - [主板與硬體架構](docs/02_硬體架構.md)
 - [供電與安全](docs/03_供電與安全.md)
 - [3D 列印外殼規格](docs/04_3D外殼需求.md)
-- **[Bambu Lab P2S 列印與打樣流程](3d-design/printing/P2S-print-workflow.md)**
+- **[Bambu Lab X1 Carbon（X1C） 列印與打樣流程](3d-design/printing/X1C-print-workflow.md)**
 - **[ABS 專項：列印設定、公差與安全](3d-design/printing/ABS-material-guide.md)**
-- [舊版外包製作流程（已被 P2S 方案取代）](docs/11_3D工具與外包列印流程.md)
+- [舊版外包製作流程（已被 X1C 方案取代）](docs/11_3D工具與外包列印流程.md)
 - [3D 設計工作區](3d-design/README.md)
 - [零件實測尺寸表](3d-design/specs/measurements.md)
-- [P2S 打樣需求與驗收表](3d-design/assembly/printing-requirements.md)
+- [X1C 打樣需求與驗收表](3d-design/assembly/printing-requirements.md)
 - [Lesson 01：Hello Robot](docs/05_Lesson01_開始實作.md)
 - [完整學習路線](docs/06_開發路線圖.md)
 - [決策與待確認](docs/07_決策與待確認.md)
@@ -97,7 +97,7 @@
 
 - [x] 設定產品方向與硬體預算
 - [x] 決定背面供電與可列印外殼
-- [x] 3D 製作方式更新為**使用公司 Bambu Lab P2S 自行列印**，採 FreeCAD + Bambu Studio；Blender MCP 做外觀（選用）
+- [x] 3D 製作方式更新為**使用公司 Bambu Lab X1 Carbon（X1C） 自行列印**，採 FreeCAD + Bambu Studio；Blender MCP 做外觀（選用）
 - [x] 公司現有列印材料確認為 **ABS**；後續以 ABS 打樣，不再以 PLA 為第一版預設
 - [x] **主板已購買**
 - [x] 規劃 LLM → LCD 文字課程
