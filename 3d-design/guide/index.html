@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#122C32">
-<title>Lesson 10 實作工作坊｜AI 建模 → FreeCAD → ABS / P2S</title>
+<title>Lesson 10 實作工作坊｜AI 建模 → FreeCAD → ABS / X1C</title>
 <meta name="description" content="ESP32 AI 寵物 3D 外殼完整實作：照片、原廠模型、尺寸、AI 提示詞、FreeCAD Macro、ABS 試印與版本管理。">
 <link rel="stylesheet" href="../../assets/style.css?v=20261112-desktop-v2">
 <link rel="stylesheet" href="./guide.css?v=20261113-full3d-v1">
@@ -37,8 +37,8 @@
       <div class="eyebrow">FROM PHOTO TO PRINTABLE PROTOTYPE</div>
       <h1>你拍照、量尺寸。<br><span>AI 來幫你建模。</span></h1>
       <p>這不只是工具介紹，而是能實際照著做的外殼開發教室。先用 Waveshare 原廠 3D 結構檔；沒有可靠模型時，才用照片＋卡尺＋AI 參數化腳本重建。先印測試件，再做完整機器人。</p>
-      <div class="hero-tags"><span>Waveshare ESP32-S3-LCD-1.47B-M</span><span>FreeCAD + Python Macro</span><span>Bambu Lab P2S / ABS</span><span>電源孔全部在背面</span></div>
-      <div class="notice"><strong>⚠️ 先分清楚兩件事</strong><p>這個網站不會自動將照片傳給 AI，也不會直接控制 FreeCAD 或 P2S。你在這裡記錄數據、複製提示詞、下載 Macro，然後在你的 Mac／AI 聊天工具／公司 P2S 執行。所有尺寸在實際量測前都不能當成正式工程值。</p></div>
+      <div class="hero-tags"><span>Waveshare ESP32-S3-LCD-1.47B-M</span><span>FreeCAD + Python Macro</span><span>Bambu Lab X1 Carbon（X1C） / ABS</span><span>電源孔全部在背面</span></div>
+      <div class="notice"><strong>⚠️ 先分清楚兩件事</strong><p>這個網站不會自動將照片傳給 AI，也不會直接控制 FreeCAD 或 X1C。你在這裡記錄數據、複製提示詞、下載 Macro，然後在你的 Mac／AI 聊天工具／公司 X1C 執行。所有尺寸在實際量測前都不能當成正式工程值。</p></div>
     </div>
     <div class="workshop-content">
       <section id="step-a" class="workshop-card" data-step="a">
@@ -108,9 +108,9 @@
       </section>
 
       <section id="step-f" class="workshop-card" data-step="f">
-        <div class="step-head"><div><span class="step-tag">10-F · SLICE & PRINT</span><h2>Bambu Studio 切片 → 公司 P2S 列印 ABS</h2><p>不是把 STL 隨便送印：需要確認材料 Profile、支撐、方向和場域安全。</p></div><span class="step-emoji">🖨</span></div>
+        <div class="step-head"><div><span class="step-tag">10-F · SLICE & PRINT</span><h2>Bambu Studio 切片 → 公司 X1 Carbon 列印 ABS</h2><p>不是把 STL 隨便送印：需要確認材料 Profile、支撐、方向和場域安全。</p></div><span class="step-emoji">🖨</span></div>
         <div class="mini-steps">
-          <div><span>01</span><p>安裝 <a href="https://bambulab.com/en/download/studio" target="_blank" rel="noopener">Bambu Studio</a>，機器選 <strong>P2S</strong>。</p></div>
+          <div><span>01</span><p>安裝 <a href="https://bambulab.com/en/download/studio" target="_blank" rel="noopener">Bambu Studio</a>，機器選 <strong>X1 Carbon</strong>。</p></div>
           <div><span>02</span><p>核對公司實際噴嘴、底板、<strong>ABS 品牌／系列</strong>與相符切片 Profile。</p></div>
           <div><span>03</span><p>匯入 STL（mm）→ Prepare（準備）→ 檢查尺寸、方向與支撐。</p></div>
           <div><span>04</span><p>Slice（切片）→ Preview（預覽）→ 保存 <strong>.3mf</strong>。</p></div>
@@ -118,7 +118,7 @@
         </div>
         <div class="notice"><strong>ABS 安全提醒</strong><p>ABS 列印可能排放揮發性物質與超細微粒，且較容易翹曲。機器有外殼與濾網不代表無需通風；依公司環安衛規範操作，不擅自改動 G-code 或安全裝置。</p></div>
         <a class="btn" href="https://github.com/wiselifeai/esp32-ai-pet/blob/main/3d-design/tutorials/06_BambuStudio_ABS列印.md" target="_blank">開啟 Bambu Studio 完整操作教材 ↗</a>
-        <label class="step-check"><input type="checkbox" data-finished="f"> 我已用 P2S + 正確 ABS Profile 產生 3MF 並完成第一片安全打樣</label>
+        <label class="step-check"><input type="checkbox" data-finished="f"> 我已用 X1C + 正確 ABS Profile 產生 3MF 並完成第一片安全打樣</label>
       </section>
 
       <section id="step-g" class="workshop-card" data-step="g">
