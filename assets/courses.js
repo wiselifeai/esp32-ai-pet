@@ -799,17 +799,17 @@ window.PET_COURSES = [
   {
     "id": "10",
     "title": "AI 輔助 3D 外殼設計",
-    "short": "8 個實作關卡：拍照 → AI 建模 → FreeCAD → ABS / P2S",
+    "short": "8 個實作關卡：拍照 → AI 建模 → FreeCAD → ABS / X1C",
     "stage": "產品整合",
     "minutes": 420,
     "icon": "box",
     "level": "8 關卡完整實作",
-    "goal": "你提供照片與卡尺量測，AI 建立可調參數的 FreeCAD 模型；再用公司 P2S 以 ABS 列印測試件、實測修正，最後完成可拆裝的寵物外殼。",
+    "goal": "你提供照片與卡尺量測，AI 建立可調參數的 FreeCAD 模型；再用公司 X1 Carbon（X1C） 以 ABS 列印測試件、實測修正，最後完成可拆裝的寵物外殼。",
     "tools": [
       "你的 ESP32-S3-LCD-1.47B-M 照片與實物",
       "卡尺／尺＋Waveshare 原廠 3D Structure",
       "Mac FreeCAD 與 AI 聊天工具",
-      "Bambu Studio + 公司 P2S / ABS",
+      "Bambu Studio + 公司 X1 Carbon（X1C） / ABS",
       "3D 實作工作坊（有尺寸輸入和 Macro 產生器）"
     ],
     "status": "設計階段",
@@ -860,8 +860,8 @@ window.PET_COURSES = [
         ]
       },
       {
-        "title": "10-F｜Bambu Studio ABS 切片與 P2S 試印",
-        "body": "用 STL 匯入 Bambu Studio，選公司 P2S、實際噴嘴與 ABS 線材 Profile。確認列印方向、支撐、尺寸和預估耗材，再 Save Project 為 3MF。依公司授權與通風安全規範列印，先小件測試。",
+        "title": "10-F｜Bambu Studio ABS 切片與 X1C 試印",
+        "body": "用 STL 匯入 Bambu Studio，選公司 X1 Carbon、實際噴嘴與 ABS 線材 Profile。確認列印方向、支撐、尺寸和預估耗材，再 Save Project 為 3MF。依公司授權與通風安全規範列印，先小件測試。",
         "points": [
           "ABS 品牌、噴嘴、底板和通風措施先確認；不要直接套 PLA Profile",
           "ABS 可能翹曲與排放微粒／VOC，機器密閉並不代表不需通風",
@@ -893,7 +893,7 @@ window.PET_COURSES = [
       "description": "此處僅示意外觀尺寸。要進行照片清單、實測尺寸表、2D 開窗預覽、AI 提示詞、FreeCAD Macro 下載與 ABS 試印記錄，請開啟下方連結的 3D 實作工作坊。",
       "action": "恢復概念尺寸"
     },
-    "challenge": "開啟 3D 實作工作坊，先完成 10-A 主板拍照及原廠 3D 模型查找。主板到貨後填完 10-B 實測六個數字，再做 10-D FreeCAD LCD 開孔試片；用 ABS 在 P2S 試印後回傳實測誤差。",
+    "challenge": "開啟 3D 實作工作坊，先完成 10-A 主板拍照及原廠 3D 模型查找。主板到貨後填完 10-B 實測六個數字，再做 10-D FreeCAD LCD 開孔試片；用 ABS 在 X1C 試印後回傳實測誤差。",
     "quiz": [
       {
         "q": "有 Waveshare 官方 3D Structure 時，最有效率的第一步？",
@@ -926,7 +926,7 @@ window.PET_COURSES = [
         "why": "改動應由可編輯工程參數出發，並重新檢查干涉、保留新版模型。"
       },
       {
-        "q": "公司 P2S 目前 ABS 的第一版試印應先做什麼？",
+        "q": "公司 X1 Carbon（X1C） 目前 ABS 的第一版試印應先做什麼？",
         "options": [
           "用 PLA Profile 直接列印完整外殼",
           "先確認材料 Profile／通風，列印小尺寸測試片",
@@ -952,7 +952,7 @@ window.PET_COURSES = [
       "10-C AI 已列出確定／未知尺寸並提出可改參數的建模方案",
       "10-D 已在 FreeCAD 執行 Macro、調參數，保存可編輯 .FCStd",
       "10-E 已規劃可拆外殼與兩路背面電源孔、SG90 干涉條件",
-      "10-F 以 P2S 正確 ABS Profile 完成小件列印並記錄安全條件",
+      "10-F 以 X1C 正確 ABS Profile 完成小件列印並記錄安全條件",
       "10-G 已用實測誤差請 AI 回修參數，至少完成一次再列印驗證",
       "10-H 保存 .FCStd、STEP、分件 STL、3MF 與裝配驗收資料"
     ],
