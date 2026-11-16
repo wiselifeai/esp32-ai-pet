@@ -1,15 +1,15 @@
-# ABS 材料專項｜Bambu Lab P2S 機器人外殼
+# ABS 材料專項｜Bambu Lab X1 Carbon（X1C） 機器人外殼
 
-更新日期：2026-11-13｜狀態：**規劃版，尚未於公司 P2S 實測**
+更新日期：2026-11-16｜狀態：**規劃版，尚未於公司 X1C 實測**
 
 ## 已確認資訊
 
-- 公司 3D 列印機：**Bambu Lab P2S**。
+- 公司 3D 列印機：**Bambu Lab X1 Carbon（X1C）**。
 - 公司目前使用的列印材料：**ABS**（使用者已確認）。
 - 主體產品：Waveshare ESP32-S3-LCD-1.47B-M AI 手掌型桌上寵物。
 - 目標外形約 **95 × 80 × 80 mm**，仍需量測全部電子零件。
 - **USB-C 和獨立 5V 馬達供電開孔都必須位在背面**。
-- 採 **FreeCAD →（選用 Blender MCP）→ STL → Bambu Studio → 公司 P2S**，可編輯工程檔、STEP 和 Bambu Studio 3MF 均要保留。
+- 採 **FreeCAD →（選用 Blender MCP）→ STL → Bambu Studio → 公司 X1C**，可編輯工程檔、STEP 和 Bambu Studio 3MF 均要保留。
 
 ## ABS 的設計意義
 
@@ -25,30 +25,30 @@
 
 | 項目 | 首版策略 |
 |---|---|
-| 印表機 | 選 **P2S**，核對實際噴嘴、底板及公司 Profile |
+| 印表機 | 選 **X1C**，核對實際噴嘴、底板及公司 Profile |
 | 耗材 | 選 **ABS**，**必須比對線材品牌／系列／規格** |
-| 噴嘴 | P2S 標配 0.4 mm，現場實際安裝尺寸仍待確認 |
+| 噴嘴 | X1C 標配 0.4 mm 硬化鋼，現場實際安裝尺寸仍待確認 |
 | 層高 | 可由與噴嘴相容的 0.20 mm 官方／廠內 Profile 起步 |
 | 噴嘴溫度 | **Bambu 自家 ABS** 原廠參考範圍 240～270°C；其他品牌以其官方說明為準 |
 | 熱床溫度 | **Bambu 自家 ABS** 原廠參考範圍 80～100°C；其他品牌以其官方說明為準 |
-| 機箱／散熱 | 遵循 ABS 及 P2S 的原廠／廠內 Profile，維持穩定環境，避免因不當冷卻導致翹曲 |
+| 機箱／散熱 | 遵循 ABS 及 X1C 的原廠／廠內 Profile，維持穩定環境，避免因不當冷卻導致翹曲 |
 | 初步壁厚 | 2～2.5 mm 作為建模起點；仍須確認強度、噴嘴線寬與裝配 |
 
-**不要直接硬套上述溫度**：因尚未確認公司 ABS 品牌與型號，也未確認公司 P2S 使用的切片 Profile。
+**不要直接硬套上述溫度**：因尚未確認公司 ABS 品牌與型號，也未確認公司 X1C 使用的切片 Profile。
 
 ## 第一次 ABS 打樣順序
 
 1. 確認公司設備使用許可、ABS 線材**品牌與型號**、打印位置的通風條件、底板與噴嘴。
 2. 收到主板後量測 PCB、LCD 有效顯示區、固定孔距及 USB-C 插頭尺寸；寫入 [零件實測表](../specs/measurements.md)。
 3. FreeCAD 製作小尺寸 **PCB 固定柱 + LCD 開孔測試片**；USB-C 背面接口可做第二片。
-4. 匯出 STL（mm），Bambu Studio 選正確 P2S、ABS 材料 Profile；檢查支撐、附著、Brim（視需要）、翹曲風險與預估耗材。
-5. 公司 P2S 依合規安全流程列印；冷卻後才安全拆件。
+4. 匯出 STL（mm），Bambu Studio 選正確 X1C、ABS 材料 Profile；檢查支撐、附著、Brim（視需要）、翹曲風險與預估耗材。
+5. 公司 X1C 依合規安全流程列印；冷卻後才安全拆件。
 6. 用 PCB 和插頭進行**實物試裝與卡尺量測**，記錄孔位偏差、翹角、層間接合及螺絲柱強度，回修 CAD。
 7. 通過小件驗證後，再印伺服支架和完整外殼。
 
 ## 實作驗收
 
-- [ ] 公司 P2S 使用許可與通風／排氣方式已確認
+- [ ] 公司 X1C 使用許可與通風／排氣方式已確認
 - [ ] ABS 品牌／系列／直徑／存放乾燥狀況已確認
 - [ ] Bambu Studio 具備與 ABS 線材相符的切片 Profile
 - [ ] 完成 LCD／PCB／USB 測試件，實測孔位與收縮結果
@@ -59,6 +59,6 @@
 
 - [Bambu Lab ABS 官方產品與參考溫度](https://bambulab-eu.myshopify.com/products/abs-filament)
 - [NIOSH：工作場域 3D 列印排放與通風控制](https://www.cdc.gov/niosh/bulletin/2018/3d-printing.html)
-- [Bambu Lab P2S](https://bambulab.com/zh/p2s)
+- [Bambu Lab X1 Carbon（X1C）](https://bambulab-eu.myshopify.com/products/x1-carbon)
 
 > 目前只有設計規範，並沒有完成任何 STL／3MF 下載檔或實機試印。
