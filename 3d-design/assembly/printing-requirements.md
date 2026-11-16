@@ -1,13 +1,13 @@
-# Bambu Lab P2S｜打樣與裝配驗收表
+# Bambu Lab X1 Carbon（X1C）｜打樣與裝配驗收表
 
-更新：2026-11-13。**公司設備**：Bambu Lab P2S。**現況**：尚無實機列印，尺寸均待量測。
+更新：2026-11-13。**公司設備**：Bambu Lab X1 Carbon（X1C）。**現況**：尚無實機列印，尺寸均待量測。
 
 ## 開始前
 
-- [ ] 確認公司允許使用 P2S 進行本次原型打樣，並遵循設備操作安全規範
-- [ ] 確認公司 P2S 真正安裝的噴嘴尺寸（標配 0.4 mm）
+- [ ] 確認公司允許使用 X1C 進行本次原型打樣，並遵循設備操作安全規範
+- [ ] 確認公司 X1C 真正安裝的噴嘴尺寸（標配 0.4 mm）
 - [ ] 確認機器使用的底板、**ABS 品牌／型號**、材料保存狀態與公司安全／通風條件
-- [ ] 在 Mac 安裝 [Bambu Studio](https://bambulab.com/en/download/studio)，選正確 **P2S** 與實際材料設定
+- [ ] 在 Mac 安裝 [Bambu Studio](https://bambulab.com/en/download/studio)，選正確 **X1C** 與實際材料設定
 - [ ] 主板／LCD／USB／SG90 尺寸已記錄在 [measurements.md](../specs/measurements.md)
 
 ## 概念規格（必須打樣驗證）
@@ -33,10 +33,10 @@
 
 參考：[ABS 材料專項流程](../printing/ABS-material-guide.md)。
 
-## P2S 第一次打樣順序
+## X1C 第一次打樣順序
 
 1. 在 FreeCAD 建立 LCD／PCB 佔位與螺絲柱的局部試件。
-2. 匯出 STL（mm），在 Bambu Studio 中匯入、選 P2S、確認耗材／噴嘴與底板。
+2. 匯出 STL（mm），在 Bambu Studio 中匯入、選 X1C、確認耗材／噴嘴與底板。
 3. 先印 **LCD 開窗＋主板固定柱試片**，檢查孔位尺寸與可拆裝性。
 4. 再印 **USB-C／獨立 5V 背面接口試片**，檢查插拔與線材空間。
 5. SG90 到貨後印 **伺服支架試片**，測試轉軸及行程干涉。
@@ -45,7 +45,7 @@
 ## 每次列印記錄（打樣後填寫）
 
 - 日期：待填
-- P2S 設備／噴嘴／底板：待填
+- X1C 設備／噴嘴／底板：待填
 - 使用耗材：**ABS**；品牌、系列、顏色：待填
 - Bambu Studio 版本／Profile：待填
 - 模型檔案名稱與 Git commit：待填
@@ -53,6 +53,6 @@
 - 支撐、翹曲、孔位、卡扣與外觀結果：待填
 - 下一版修改項目：待填
 
-更多：[P2S 列印流程](../printing/P2S-print-workflow.md)。
+更多：[X1C 列印流程](../printing/X1C-print-workflow.md)。
 
 **目前沒有可列印 STL／3MF，不能將上述檢查欄位視為已驗收。**
